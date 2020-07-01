@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>TweetryDish</title>
+    <meta name="TweetryDish" content="TweetryDish">
+    <!-- External CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+    <!-- My CSS -->
+    <link rel="stylesheet" href="{{ url_for("static", filename="index.css")}}">
+</head>
+<body>
+    <header>
+        <div id="logo">TweetryDish</div>
+    </header>
+    <div id="content">
+        <div id="quote">
+            <div id="quote-text">"The greatest glory in living lies not in never falling, but in rising every time we fall."</div>
+            <div id="quote-author">-Nelson Mandela</div>
+        </div>
+    </div>
+    <!-- My JS -->
+    <script src="{{ url_for("static", filename="index.js")}}"></script>
+</body>
+</html>
