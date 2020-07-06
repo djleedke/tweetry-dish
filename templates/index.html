@@ -6,6 +6,7 @@
     <meta name="TweetryDish" content="TweetryDish">
     <!-- External CSS -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- My CSS -->
     <link rel="stylesheet" href="{{ url_for("static", filename="index.css")}}">
 </head>
@@ -15,8 +16,27 @@
     </header>
     <div id="content">
         <div id="quote">
-            <div id="quote-text">"The greatest glory in living lies not in never falling, but in rising every time we fall."</div>
-            <div id="quote-author">-Nelson Mandela</div>
+            <div id="quote-text">"The <span style="background-color:#74120b;" class="adjective"><b>greatest</b></span> glory in living lies not in never falling, but in <span class="verb"><b>rising</b></span> every time we fall."</div>
+            <div id="quote-author">-Melson Nandela</div>
+        </div>
+        <div id="word-selector">
+            <div id="top-words">
+                <h1>Top Words Right Now</h1>
+                <ul>
+                    <li>Worst<span>10</span></li>
+                    <li>Saddest<span>8</span></li>
+                    <li>Easiest<span>7</span></li>
+                    <li>Fantastic<span>4</span></li>
+                </ul>
+            </div>
+            <div id="find-your-own">
+                <i class="fa fa-search"></i>
+                <input type="text" placeholder="Find your own...">
+                <ul>
+                    <li>Hello</li>
+                    <li>Awesome</li>
+                </ul>
+            </div>
         </div>
     </div>
     <!-- My JS -->

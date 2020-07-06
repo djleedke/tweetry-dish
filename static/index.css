@@ -28,9 +28,10 @@ header {
     background-color:#eb4034;
 }
 
+/*---------- Quote ----------*/
+
 #quote {
-    padding: 15% 20%;
-  
+    padding: 10% 20% 10% 20%;
 }
 
 #quote-text {
@@ -42,4 +43,73 @@ header {
     margin-top:20px;
     float:right;
     font-size:2.5em;
+}
+
+/*---------- Word Selector ----------*/
+
+#word-selector {
+    padding: 0 20%;
+    
+}
+
+#word-selector h1 {
+    margin:0px;
+    height:40px;
+    border-radius: 5px;
+    font-size: 1.5em;
+    background-color: #e82517;
+    text-align: center;
+    padding-top:10px;
+}
+
+#word-selector ul {
+    list-style: none;
+    padding-left:10px;
+    font-size:1.5em;
+}
+
+#word-selector ul span {
+    float:right;
+    padding-right:10px;
+}
+
+#word-selector li {
+    padding-top:10px;
+}
+
+#top-words {
+    width:45%;
+    float:left;
+}
+
+#find-your-own {
+    width:45%;
+    float:right;
+}
+
+.fa-search {
+    font-size: 1.5em;
+}
+
+#find-your-own input {
+    background:none;
+    color:white;
+    border:none;
+    height:40px;
+    width:75%;
+    border-bottom:solid 2px;
+    font-size:1.5em;
+    padding-left:10px;
+}
+
+#find-your-own input:focus {
+    outline:none;
+}
+
+#find-your-own input::placeholder {
+    color:white;
+}
+
+#find-your-own ul {
+    padding-left:30px;
 }
