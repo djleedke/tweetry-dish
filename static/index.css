@@ -39,6 +39,28 @@ header {
     font-size:3em;
 }
 
+.quote-word {
+    color:#74120b;
+    font-weight: bold;
+    transition: background-color .5s;
+}
+
+.quote-word:hover{
+    background-color: white;
+    transition: background-color .5s;
+    cursor: pointer;
+}
+
+.selected {
+    background-color:#74120b;
+    color:white;
+}
+
+.selected:hover {
+    background-color:#74120b;
+    color:white;
+}
+
 #quote-author {
     margin-top:20px;
     float:right;

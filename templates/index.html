@@ -16,8 +16,9 @@
     </header>
     <div id="content">
         <div id="quote">
-            <div id="quote-text">"The <span style="background-color:#74120b;" class="adjective"><b>greatest</b></span> glory in living lies not in never falling, but in <span class="verb"><b>rising</b></span> every time we fall."</div>
-            <div id="quote-author">-Melson Nandela</div>
+            
+            <div id="quote-text">"{{ current_quote.quote | safe }}"</div>
+            <div id="quote-author">-{{ current_quote.author | safe}}</div>
         </div>
         <div id="word-selector">
             <div id="top-words">
@@ -31,14 +32,13 @@
             </div>
             <div id="find-your-own">
                 <i class="fa fa-search"></i>
-                <input type="text" placeholder="Find your own...">
-                <ul>
-                    <li>Hello</li>
-                    <li>Awesome</li>
-                </ul>
+                <input id="search-input" type="text" placeholder="Find your own..." autocomplete="off">
+                <ul id="search-results"></ul>
             </div>
         </div>
     </div>
+    <!-- External JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
     <!-- My JS -->
     <script src="{{ url_for("static", filename="index.js")}}"></script>
 </body>
