@@ -4,7 +4,7 @@ html, body {
     height:100%;
     padding:0px;
     margin:0px;
-    overflow: hidden;
+    
  
 }
 
@@ -12,7 +12,7 @@ header {
     height:5%;
     background-color:#e82517;
     color:white;
-    min-height:50px;
+    min-height: 45px;
 }
 
 #logo {
@@ -23,7 +23,7 @@ header {
 
 #content {
     width:100%;
-    height:95%;
+    min-height: 95%;
     color:white;
     background-color:#eb4034;
 }
@@ -31,7 +31,8 @@ header {
 /*---------- Quote ----------*/
 
 #quote {
-    padding: 10% 20% 10% 20%;
+    padding: 5% 20% 6% 20%;
+    max-height:30%;
 }
 
 #quote-text {
@@ -62,7 +63,7 @@ header {
 }
 
 #quote-author {
-    margin-top:20px;
+    margin-top:10px;
     float:right;
     font-size:2.5em;
 }
@@ -71,7 +72,7 @@ header {
 
 #word-selector {
     padding: 0 20%;
-    
+    max-height: 30%;
 }
 
 #word-selector h1 {
@@ -101,12 +102,19 @@ header {
 
 #top-words {
     width:45%;
-    float:left;
+    display: inline-block;
+  
+}
+
+#top-words ul {
+    margin-top:10px;
 }
 
 #find-your-own {
     width:45%;
-    float:right;
+    padding-left:9%;
+    display: inline-block;
+    vertical-align: top;
 }
 
 .fa-search {
@@ -133,5 +141,19 @@ header {
 }
 
 #find-your-own ul {
+    margin-top:10px;
     padding-left:30px;
+}
+
+#find-your-own li {
+    padding: 5px 5px;
+    width:75%;
+
+}
+
+#find-your-own li:hover {
+    background:#74120b;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-right:10px;
 }
