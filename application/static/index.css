@@ -52,12 +52,12 @@ header {
     cursor: pointer;
 }
 
-.selected {
+.selected-quote-word {
     background-color:#74120b;
     color:white;
 }
 
-.selected:hover {
+.selected-quote-word:hover {
     background-color:#74120b;
     color:white;
 }
@@ -100,6 +100,8 @@ header {
     padding-top:10px;
 }
 
+/*---------- Top Words ----------*/
+
 #top-words {
     width:45%;
     display: inline-block;
@@ -109,6 +111,9 @@ header {
 #top-words ul {
     margin-top:10px;
 }
+
+
+/*---------- Find Your Own Word ----------*/
 
 #find-your-own {
     width:45%;
@@ -152,8 +157,19 @@ header {
 }
 
 #find-your-own li:hover {
-    background:#74120b;
+    color: #74120b;
+    font-weight: bold;
     cursor: pointer;
     border-radius: 5px;
     margin-right:10px;
+}
+
+.selected-word-choice {
+    background-color:#74120b;
+    border-radius: 5px;
+    color:white;
+}
+
+.selected-word-choice:hover {
+    color:white !important;
 }
