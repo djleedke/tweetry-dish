@@ -12,7 +12,7 @@ class QuoteManager:
         self.current_quote = self.get_random_quote()
 
     def get_random_quote(self):
-        return quotes[random.randint(0, len(quotes)-1)]
+        return Quote.query.get(random.randint(1, db.session.query(Quote).count()))
 
         
     def check_for_new_quotes(self):
