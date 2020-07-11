@@ -15,10 +15,9 @@
         <div id="logo">TweetryDish</div>
     </header>
     <div id="content">
-        <div id="quote">
-            
-            <div id="quote-text">"{{ current_quote.text | safe }}"</div>
-            <div id="quote-author">-{{ current_quote.author | safe}}</div>
+        <div id="quote">   
+            <div id="quote-text">"{{ tweetry.quote.text | safe }}"</div>
+            <div id="quote-author">-{{ tweetry.quote.author | safe}}</div>
         </div>
         <div id="word-selector">
             <div id="top-words">

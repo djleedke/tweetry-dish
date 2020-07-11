@@ -7,8 +7,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 
 db = SQLAlchemy(app) 
 
-from application.quote_manager import QuoteManager
-quote_manager = QuoteManager()
+from application.tweetry_manager import TweetryManager
+tweetry_manager = TweetryManager()
 
 from application import routes
 

@@ -1,20 +1,25 @@
 
 from application.quotes import quotes
-from application.models import Quote, Word
+from application.models import Quote, Word, Tweetry
 from application import db
 import random
 
-class QuoteManager:
+class TweetryManager:
 
     def __init__(self):
         print('Quote Manager: Initialized')
         self.check_for_new_quotes()
-        self.current_quote = self.get_random_quote()
+        self.tweetry = self.create_new_tweetry()
+        print(self.tweetry.quote.words)
 
-    def get_random_quote(self):
-        return Quote.query.get(random.randint(1, db.session.query(Quote).count()))
+    #Create new tweetry and add to database
+    def create_new_tweetry(self):
+        tweetry = Tweetry(quote_id=random.randint(1, db.session.query(Quote).count()))
+        db.session.add(tweetry)
+        db.session.commit()
+        return tweetry
 
-        
+    #Checks our quotes.py file to see if any new quotes have been added    
     def check_for_new_quotes(self):
 
         #Iterating over list of quotes in quotes.py
