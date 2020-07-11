@@ -16,17 +16,21 @@
     </header>
     <div id="content">
         <div id="quote">   
-            <div id="quote-text">"{{ tweetry.quote.text | safe }}"</div>
-            <div id="quote-author">-{{ tweetry.quote.author | safe}}</div>
+            <div id="quote-text">
+                {{ data.tweetry.quote.text | safe }}
+                <i id="save-button" class="fa fa-floppy-o" aria-hidden="true"></i>
+            </div>
+
+            <div id="quote-author">-{{ data.tweetry.quote.author | safe}}</div>
         </div>
         <div id="word-selector">
             <div id="top-words">
                 <h1>Top Words Right Now</h1>
                 <ul>
-                    <li>worst<span>10</span></li>
-                    <li>saddest<span>8</span></li>
-                    <li>easiest<span>7</span></li>
-                    <li>fantastic<span>4</span></li>
+                    <!-- TO DO: These need to populate based on the word that is selected -->
+                    {% for choice in data.tweetry.choices %}
+                        <li>{{choice.text}}<span>{{choice.votes}}</span></li>
+                    {% endfor %}
                 </ul>
             </div>
             <div id="find-your-own">

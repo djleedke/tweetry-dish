@@ -68,6 +68,19 @@ header {
     font-size:2.5em;
 }
 
+.fa-floppy-o {
+    padding-left:20px;
+    font-size:.8em;
+}
+
+
+.fa-floppy-o:hover {
+    padding-left:20px;
+    font-size:.8em;
+    color: #74120b;
+    cursor: pointer;
+}
+
 /*---------- Word Selector ----------*/
 
 #word-selector {

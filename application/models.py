@@ -37,5 +37,5 @@ class Choice(db.Model):
     tweetry_id = db.Column(db.Integer, db.ForeignKey('tweetry.id'), nullable=False)
 
     def __repr__(self):
-        return f"Choice('{ self.text }, { self.votes }, { self.word_id }, { self.tweetry_id }')"
+        return f"Choice('Text:{ self.text }, Votes:{ self.votes }, Word ID{ self.word_id }, Tweetry ID{ self.tweetry_id }')"
 
