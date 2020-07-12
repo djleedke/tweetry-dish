@@ -1,6 +1,7 @@
 
 var selectedWord = null;
 
+
 /*---------- Key Handling ----------*/
 
 $('#search-input').keypress(function(e) {
@@ -25,6 +26,22 @@ $(document).ready(function(){
         clearSelectedQuoteWord();
         $(this).addClass('selected-quote-word');
         selectedWord = $(this)
+
+        $.ajax({
+            type : 'POST',
+            url : '/top-choices',
+            data : JSON.stringify(selectedWord.data()),
+            contentType: 'application/json; charset=utf-8',
+            success: function(result){
+                $('#top-words-list').html('');
+
+                for(var choice in result){
+                    console.log(result[choice].word);
+                    //TO DO: These need to be sorted by number of votes
+                    $('#top-words-list').append('<li>' + result[choice].word + '<span>' + result[choice].votes + '</span></li>');
+                }
+            }
+        });
     });
 
     $('#save-button').on('click', function(e){
@@ -33,14 +50,13 @@ $(document).ready(function(){
             type : 'POST',
             url : '/save',
             data : JSON.stringify(getSelectedWords()),
-            contentType: "application/json; charset=utf-8",
+            contentType: 'application/json; charset=utf-8',
             success: function(result){
                 console.log(result);
             }
         });
     });
 });
-
 
 
 function addWordChoiceClickEvent(){

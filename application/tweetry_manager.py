@@ -60,10 +60,10 @@ class TweetryManager:
             existing_choice = db.session.query(Choice).filter_by(text=choice, word_id=word_id, tweetry_id=self.current_tweetry_id).first()
             #If we do not have a choice created yet for the word that we are enumerating
             if not existing_choice: #Create it
-                new_choice = Choice(text=choice, word_id=word_id, votes=0, tweetry_id=self.current_tweetry_id)
+                new_choice = Choice(text=choice, word_id=word_id, votes=1, tweetry_id=self.current_tweetry_id)
                 db.session.add(new_choice)
                 db.session.commit()
-                print('Tweetry Manager: A new choice was added.')
+                print('Tweetry Manager: A new choice was added: "{}"'.format(choice))
             else:                   #or increase the vote count
                 existing_choice.votes += 1
                 db.session.commit()
@@ -71,5 +71,22 @@ class TweetryManager:
 
         return
 
+    #Gets the top choices for the specified word and returns a dictionary of those choices
+    def get_top_choices_for_word(self, word):
+        
+        word_id = db.session.query(Word).filter_by(text=word['word'], position=word['position']).first().id
+        choices = db.session.query(Choice).filter_by(word_id=word_id, tweetry_id=self.current_tweetry_id).all()
+
+        top_choices = {}
+        
+        for choice in choices:
+            top_choices[choice.text] = { 
+                'word'  : choice.text,
+                'votes' : choice.votes
+                }
+
+        return top_choices
+
+    #Returns the current tweetry object
     def get_current_tweetry(self):
         return db.session.query(Tweetry).filter_by(id=self.current_tweetry_id).first()
