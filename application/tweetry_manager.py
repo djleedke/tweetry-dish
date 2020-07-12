@@ -32,7 +32,7 @@ class TweetryManager:
                 db.session.add(new_quote)
                 db.session.commit()
                 
-                #We also insert the words associated with that quote that will be changed
+                #We also insert the words associated with that quote that will be changed by the user
                 for index, word in enumerate(quote['words']):
 
                     if not Word.query.filter_by(text=quote['text'], position=index, quote_id=new_quote.id).first():
@@ -45,7 +45,6 @@ class TweetryManager:
         return
 
     #TO DO: Need to prevent users from voting more than once
-    #TO DO: Need to check to see if word is the original word
     def update_choices(self, choices):
 
         tweetry = self.get_current_tweetry()
@@ -53,20 +52,24 @@ class TweetryManager:
         for index, choice in enumerate(choices):
 
             word_id = tweetry.quote.words[index].id
+
+            #If the choice is the default word, next iteration
+            if db.session.query(Word).filter_by(text=choice, id=word_id).first():
+                continue
+
             existing_choice = db.session.query(Choice).filter_by(text=choice, word_id=word_id, tweetry_id=self.current_tweetry_id).first()
             #If we do not have a choice created yet for the word that we are enumerating
-            if not existing_choice:
+            if not existing_choice: #Create it
                 new_choice = Choice(text=choice, word_id=word_id, votes=0, tweetry_id=self.current_tweetry_id)
                 db.session.add(new_choice)
                 db.session.commit()
                 print('Tweetry Manager: A new choice was added.')
-            else:
+            else:                   #or increase the vote count
                 existing_choice.votes += 1
-                print(existing_choice.votes)
                 db.session.commit()
-                print('Tweetry Manager: Choice Exists!')
+                print('Tweetry Manager: Choice Exists! Vote count for "{}" is now {}'.format(choice, existing_choice.votes))
 
-        return True
+        return
 
     def get_current_tweetry(self):
         return db.session.query(Tweetry).filter_by(id=self.current_tweetry_id).first()
