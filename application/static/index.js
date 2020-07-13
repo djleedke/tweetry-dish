@@ -27,6 +27,9 @@ $(document).ready(function(){
         $(this).addClass('selected-quote-word');
         selectedWord = $(this)
 
+        $('#quote').addClass('slide-up');
+        $('#word-selector').addClass('visible');
+
         $.ajax({
             type : 'POST',
             url : '/top-choices',

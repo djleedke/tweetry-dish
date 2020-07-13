@@ -31,8 +31,12 @@ header {
 /*---------- Quote ----------*/
 
 #quote {
-    padding: 5% 20% 6% 20%;
-    max-height:30%;
+    padding: 10% 20% 6% 20%;
+}
+
+.slide-up {
+    padding-top:5% !important;
+    transition: all 1s !important;
 }
 
 #quote-text {
@@ -86,6 +90,14 @@ header {
 #word-selector {
     padding: 0 20%;
     max-height: 30%;
+    visibility:hidden;
+    opacity:0;
+}
+
+.visible {
+    visibility: visible !important;
+    opacity: 1 !important;
+    transition: opacity 1s !important;
 }
 
 #word-selector h1 {

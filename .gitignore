@@ -1,7 +1,7 @@
 # Created by https://www.gitignore.io
 
 #My files
-
+site.db
 
 #My folders
 media/
