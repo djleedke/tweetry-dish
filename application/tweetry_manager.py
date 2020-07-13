@@ -72,11 +72,13 @@ class TweetryManager:
         return
 
     #Gets the top choices for the specified word and returns a dictionary of those choices
-    def get_top_choices_for_word(self, word):
+    def get_top_choices(self, word_data):
         
-        word_id = db.session.query(Word).filter_by(text=word['word'], position=word['position']).first().id
-        choices = db.session.query(Choice).filter_by(word_id=word_id, tweetry_id=self.current_tweetry_id).all()
+        word_id = db.session.query(Word).filter_by(text=word_data['word'], position=word_data['position']).first().id
+        choices = db.session.query(Choice).filter_by(word_id=word_id, tweetry_id=self.current_tweetry_id).order_by(db.desc('votes')).all()
 
+
+        print(choices)
         top_choices = {}
         
         for choice in choices:
@@ -86,6 +88,22 @@ class TweetryManager:
                 }
 
         return top_choices
+
+    #Gets the top choice for specified word
+    def get_top_choice(self, word_data):
+
+        word_id = db.session.query(Word).filter_by(text=word_data['word'], position=word_data['position']).first().id
+        choice = db.session.query(Choice).filter_by(word_id=word_id, tweetry_id=self.current_tweetry_id).order_by(db.desc('votes')).first()
+
+        if choice:
+            top_choice = {
+                'word' : choice.text,
+                'votes' : choice.votes
+            }
+
+            return top_choice
+        else:
+            return 'Failed'
 
     #Returns the current tweetry object
     def get_current_tweetry(self):

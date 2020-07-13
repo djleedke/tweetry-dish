@@ -13,18 +13,27 @@ def index():
 
 
 #---------- AJAX -----------
-@app.route('/save', methods=['GET', 'POST'])
-def save():
+
+@app.route('/save-choice', methods=['GET', 'POST'])
+def save_choice():
 
     if request.method == 'POST':
         tweetry_manager.update_choices(request.get_json())
 
-    return 'Saved'
+    return 'Success'
+
+@app.route('/top-choice', methods=['GET', 'POST'])
+def top_choice():
+    if request.method == 'POST': 
+        return tweetry_manager.get_top_choice(request.get_json())
+    else:
+        return 'Failed'
 
 @app.route('/top-choices', methods=['GET', 'POST'])
 def top_choices():
     
     if request.method == 'POST': 
-        return tweetry_manager.get_top_choices_for_word(request.get_json())
+        return tweetry_manager.get_top_choices(request.get_json())
     else:
-        return '2'
+        return 'Failed'
+

@@ -10,7 +10,7 @@ quotes = [
          'words' : ['started']},
         
         {'author': 'Steve Jobs', 
-         'text'  : 'Your time is <span class="quote-word" data-word="limited" data-position=0>limited</span>, so don\'t waste it living someone else\'s life. Don\'t be trapped by <span class="quote-word" data-position=1 data-word="dogma">dogma</span>  – which is living with the results of other people\'s thinking.',
+         'text'  : 'Your time is <span class="quote-word" data-position=0 data-word="limited">limited</span>, so don\'t waste it living someone else\'s life. Don\'t be trapped by <span class="quote-word" data-position=1 data-word="dogma">dogma</span>  – which is living with the results of other people\'s thinking.',
          'words' : ['limited', 'dogma']},
 
         {'author': 'Mahatma Gandhi', 

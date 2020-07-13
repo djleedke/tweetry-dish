@@ -1,6 +1,15 @@
 
 var selectedWord = null;
 
+/*---------- Initialization ----------*/
+
+$(document).ready(function(){
+
+    $('.quote-word').each(function(){
+        ele = $(this)
+        getTopChoice(ele);
+    });
+});
 
 /*---------- Key Handling ----------*/
 
@@ -30,37 +39,13 @@ $(document).ready(function(){
         $('#quote').addClass('slide-up');
         $('#word-selector').addClass('visible');
 
-        $.ajax({
-            type : 'POST',
-            url : '/top-choices',
-            data : JSON.stringify(selectedWord.data()),
-            contentType: 'application/json; charset=utf-8',
-            success: function(result){
-                $('#top-words-list').html('');
-
-                for(var choice in result){
-                    console.log(result[choice].word);
-                    //TO DO: These need to be sorted by number of votes
-                    $('#top-words-list').append('<li>' + result[choice].word + '<span>' + result[choice].votes + '</span></li>');
-                }
-            }
-        });
+        refreshTopChoices();
     });
 
     $('#save-button').on('click', function(e){
-
-        $.ajax({
-            type : 'POST',
-            url : '/save',
-            data : JSON.stringify(getSelectedWords()),
-            contentType: 'application/json; charset=utf-8',
-            success: function(result){
-                console.log(result);
-            }
-        });
+        saveChoice();
     });
 });
-
 
 function addWordChoiceClickEvent(){
     $('.word-choice').on('click', function(e){
@@ -68,6 +53,53 @@ function addWordChoiceClickEvent(){
         $(this).addClass('selected-word-choice');
 
         selectedWord.html($(this).html());
+    });
+}
+
+/*---------- AJAX ----------*/
+
+//Saves the selected word choice to the database
+function saveChoice(){
+    $.ajax({
+        type : 'POST',
+        url : '/save-choice',
+        data : JSON.stringify(getSelectedWords()),
+        contentType: 'application/json; charset=utf-8',
+        success: function(result){
+            refreshTopChoices();
+        }
+    });
+}
+
+//Refreshes list of the top choices for the currently selected word
+function refreshTopChoices(){
+    $.ajax({
+        type : 'POST',
+        url : '/top-choices',
+        data : JSON.stringify(selectedWord.data()),
+        contentType: 'application/json; charset=utf-8',
+        success: function(result){
+            $('#top-words-list').html('');
+
+            for(var choice in result){
+                $('#top-words-list').append('<li>' + result[choice].word + '<span>' + result[choice].votes + '</span></li>');
+            }
+        }
+    });
+}
+
+function getTopChoice(ele){
+    console.log(ele.data());
+    $.ajax({
+        type : 'POST',
+        url : '/top-choice',
+        data : JSON.stringify(ele.data()),
+        contentType: 'application/json; charset=utf-8',
+        success: function(result){
+            if (result !== 'Failed'){
+                ele.html(result['word']);
+            }
+        }
     });
 }
 
@@ -106,3 +138,9 @@ function clearSelectedWordChoice(){
         $(this).removeClass('selected-word-choice');
     });
 }
+
+
+/*---------- Page Ready---------*/
+$(document).ready(function(){
+    $('html').show();
+});
