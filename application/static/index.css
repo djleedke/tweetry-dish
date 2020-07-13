@@ -13,7 +13,7 @@ html, body {
 
 header {
     height:5%;
-    background-color:#e82517;
+    background-color:#0b7bc1;
     color:white;
     min-height: 45px;
 }
@@ -28,7 +28,7 @@ header {
     width:100%;
     min-height: 95%;
     color:white;
-    background-color:#eb4034;
+    background-color:  #26a4f2;
 }
 
 /*---------- Quote ----------*/
@@ -48,24 +48,25 @@ header {
 }
 
 .quote-word {
-    color:#74120b;
+    color:white;
     font-weight: bold;
     transition: background-color .5s;
 }
 
 .quote-word:hover{
     background-color: white;
+    color:#0e9af1;
     transition: background-color .5s;
     cursor: pointer;
 }
 
 .selected-quote-word {
-    background-color:#74120b;
+    background-color:#0b7bc1;
     color:white;
 }
 
 .selected-quote-word:hover {
-    background-color:#74120b;
+    background-color:#0b7bc1;
     color:white;
 }
 
@@ -84,7 +85,7 @@ header {
 .fa-floppy-o:hover {
     padding-left:20px;
     font-size:.8em;
-    color: #74120b;
+    color: #0b7bc1;
     cursor: pointer;
 }
 
@@ -108,23 +109,8 @@ header {
     height:40px;
     border-radius: 5px;
     font-size: 1.5em;
-    background-color: #e82517;
+    background-color: #0b7bc1;
     text-align: center;
-    padding-top:10px;
-}
-
-#word-selector ul {
-    list-style: none;
-    padding-left:10px;
-    font-size:1.5em;
-}
-
-#word-selector ul span {
-    float:right;
-    padding-right:10px;
-}
-
-#word-selector li {
     padding-top:10px;
 }
 
@@ -136,8 +122,26 @@ header {
   
 }
 
-#top-words ul {
-    margin-top:10px;
+#top-words-list {
+    margin-top:0px;
+    background-color: white;
+    color:black;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    padding-left: 0px;
+    list-style: none;
+    font-size:1.5em;
+}
+
+#top-words-list span {
+    float:right;
+    padding-right:20px;
+}
+
+#top-words-list li:hover {
+    background-color: #87ccf8;
+    cursor: pointer;
+    color:black;
 }
 
 
@@ -150,19 +154,30 @@ header {
     vertical-align: top;
 }
 
+#search-bar {
+    border-radius: 5px;
+    background-color: #0b7bc1;
+    padding-top:5px;
+    padding-bottom:5px;
+}
+
 .fa-search {
     font-size: 1.5em;
+    width:5%;
+    padding-left:2.5%;
+    padding-right:2.5%;
 }
 
 #find-your-own input {
     background:none;
-    color:white;
+    color:black;
     border:none;
     height:40px;
-    width:75%;
-    border-bottom:solid 2px;
+    width:85%;
     font-size:1.5em;
-    padding-left:10px;
+    padding-left:2%;
+    background-color: white;
+    border-radius: 5px;
 }
 
 #find-your-own input:focus {
@@ -170,31 +185,40 @@ header {
 }
 
 #find-your-own input::placeholder {
-    color:white;
+    color:grey;
 }
 
-#find-your-own ul {
-    margin-top:10px;
-    padding-left:30px;
+#search-results {
+    margin-top:0px;
+    width:87%;
+    margin-left:11%;
+    background-color: white;
+    color:black;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    padding-left: 0px;
+    list-style: none;
+    font-size:1.5em;
 }
 
 #find-your-own li {
-    padding: 5px 5px;
-    width:75%;
+    width:100%;
+}
 
+.word-choice {
+    padding-left:12px;
+    padding-bottom:6px;
+    padding-top:6px;
 }
 
 #find-your-own li:hover {
-    color: #74120b;
-    font-weight: bold;
+    background-color: #87ccf8;
     cursor: pointer;
-    border-radius: 5px;
-    margin-right:10px;
+    color:black;
 }
 
 .selected-word-choice {
-    background-color:#74120b;
-    border-radius: 5px;
+    background-color:#0e9af1;
     color:white;
 }
 

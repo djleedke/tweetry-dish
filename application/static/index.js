@@ -36,8 +36,11 @@ $(document).ready(function(){
         $(this).addClass('selected-quote-word');
         selectedWord = $(this)
 
+        //Some transition animations
         $('#quote').addClass('slide-up');
         $('#word-selector').addClass('visible');
+
+        $('#search-input').focus();
 
         refreshTopChoices();
     });
@@ -51,8 +54,7 @@ function addWordChoiceClickEvent(){
     $('.word-choice').on('click', function(e){
         clearSelectedWordChoice();
         $(this).addClass('selected-word-choice');
-
-        selectedWord.html($(this).html());
+        selectedWord.html($(this).data('word'));
     });
 }
 
@@ -82,8 +84,9 @@ function refreshTopChoices(){
             $('#top-words-list').html('');
 
             for(var choice in result){
-                $('#top-words-list').append('<li>' + result[choice].word + '<span>' + result[choice].votes + '</span></li>');
+                $('#top-words-list').append('<li><div class="word-choice" data-word=' + result[choice].word + '>' + result[choice].word + '<span>' + result[choice].votes + '</span></div></li>');
             }
+            addWordChoiceClickEvent();
         }
     });
 }
@@ -103,7 +106,6 @@ function getTopChoice(ele){
     });
 }
 
-
 /*---------- Miscellaneous Functions -----------*/
 
 function populateSearchResults(data){
@@ -111,7 +113,7 @@ function populateSearchResults(data){
     $('#search-results').html(' ');
 
     for(i = 0; i < data.length; i++){
-        $('#search-results').append('<li class="word-choice">' + data[i].word + '</li>')
+        $('#search-results').append('<li><div class="word-choice" data-word=' + data[i].word + '>' + data[i].word + '</div></li>')
     }
     addWordChoiceClickEvent();
 }
@@ -138,7 +140,6 @@ function clearSelectedWordChoice(){
         $(this).removeClass('selected-word-choice');
     });
 }
-
 
 /*---------- Page Ready---------*/
 $(document).ready(function(){
