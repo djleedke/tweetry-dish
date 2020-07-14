@@ -38,13 +38,13 @@ header {
 }
 
 .slide-up {
-    padding-top:5% !important;
+    padding-top:3% !important;
     transition: all 1s !important;
 }
 
 #quote-text {
     font-style: italic;
-    font-size:3em;
+    font-size:3vw;
 }
 
 .quote-word {
@@ -224,4 +224,77 @@ header {
 
 .selected-word-choice:hover {
     color:white !important;
+}
+
+/*---------- Media Queries -----------*/
+@media only screen and (max-width:1000px) {
+
+
+    /*---------- Quote ----------*/
+    #quote {
+        padding:10% 5% 20% 5%;
+        position:-webkit-sticky;
+        position:sticky;
+        top:0;
+        background-color:inherit;
+    }
+
+    .bottom-bordered {
+        border-bottom: solid 2px #0b7bc1;
+    }
+
+    #quote-text {
+        font-size:8vw;
+    }
+
+    #quote-author {
+        font-size:5vw;
+    }
+
+    .slide-up {
+        padding-top:10% !important;
+    }
+
+    /*---------- Word Selector ----------*/
+    #word-selector {
+        padding:0;
+    }
+
+    #top-words {
+        width:100%;
+    }
+
+    #top-words h1 {
+        border-radius:0px;
+    }
+
+    /*---------- Top Words ----------*/
+
+    #top-words-list {
+        margin-bottom:0px;
+        border-radius:0px;
+    }
+
+    /*---------- Find Your Own Word -----------*/
+
+    #find-your-own {
+        width:100%;
+        padding:0;
+    }
+
+    #search-bar {
+        border-radius: 0px;
+    }
+
+    #find-your-own input {
+        width:80%;
+    }
+
+    #search-results {
+        width: 100%;
+        margin-left:0px;
+        border-radius:0px;
+    }
+
+
 }

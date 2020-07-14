@@ -38,9 +38,10 @@ $(document).ready(function(){
 
         //Some transition animations
         $('#quote').addClass('slide-up');
+        $('#quote').addClass('bottom-bordered');
         $('#word-selector').addClass('visible');
 
-        $('#search-input').focus();
+        //$('#search-input').focus();
 
         refreshTopChoices();
     });
