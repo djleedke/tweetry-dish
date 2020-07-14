@@ -77,8 +77,6 @@ class TweetryManager:
         word_id = db.session.query(Word).filter_by(text=word_data['word'], position=word_data['position']).first().id
         choices = db.session.query(Choice).filter_by(word_id=word_id, tweetry_id=self.current_tweetry_id).order_by(db.desc('votes')).all()
 
-
-        print(choices)
         top_choices = {}
         
         for choice in choices:

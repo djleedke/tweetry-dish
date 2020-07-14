@@ -26,6 +26,7 @@ $('#search-input').keypress(function(e) {
     }
 });
 
+
 /*---------- On Click Events ----------*/
 
 $(document).ready(function(){
@@ -46,7 +47,7 @@ $(document).ready(function(){
         refreshTopChoices();
     });
 
-    $('#save-button').on('click', function(e){
+    $('#vote-button').on('click', function(e){
         saveChoice();
     });
 });
@@ -56,6 +57,7 @@ function addWordChoiceClickEvent(){
         clearSelectedWordChoice();
         $(this).addClass('selected-word-choice');
         selectedWord.html($(this).data('word'));
+        $('#vote-footer').addClass('visible');
     });
 }
 
