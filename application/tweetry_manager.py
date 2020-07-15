@@ -16,7 +16,7 @@ class TweetryManager:
         tweetry = Tweetry(quote_id=random.randint(1, db.session.query(Quote).count()))
         db.session.add(tweetry)
         db.session.commit()
-        #return tweetry
+        self.voted_ips = []
         return tweetry.id
 
     #Checks our quotes.py file to see if any new quotes have been added    
@@ -44,48 +44,64 @@ class TweetryManager:
 
         return
 
-    #TO DO: Need to prevent users from voting more than once
-    def update_choices(self, choices):
+    #Places a vote for the specified choice, voting multiple times will cause the 
+    #user's prior vote to be removed each time
+    def save_vote(self, choice, ip_address):
 
         tweetry = self.get_current_tweetry()
 
-        for index, choice in enumerate(choices):
+        word_id = db.session.query(Word).filter_by(text=choice['word'], position=choice['position'], quote_id=self.get_current_tweetry().quote_id).first().id
 
-            word_id = tweetry.quote.words[index].id
+        #If the choice is the default word we do nothing and leave
+        if db.session.query(Word).filter_by(text=choice['choice'], id=word_id).first():
+            return 'Failed'
 
-            #If the choice is the default word, next iteration
-            if db.session.query(Word).filter_by(text=choice, id=word_id).first():
-                continue
+        existing_choice = db.session.query(Choice).filter_by(text=choice['choice'], word_id=word_id, tweetry_id=self.current_tweetry_id).first()
+        
+        #If the choice already existed
+        if not existing_choice: #Create it 
+            new_choice = Choice(text=choice['choice'], word_id=word_id, votes=1, tweetry_id=self.current_tweetry_id)
+            db.session.add(new_choice)
+            db.session.commit()
+            choice_id = new_choice.id
+            print('Tweetry Manager: A new choice was added: "{}"'.format(choice['choice']))
+        else:
+            existing_choice.votes += 1
+            db.session.commit()
+            choice_id = existing_choice.id
+            print('Tweetry Manager: Choice Exists! Vote count for "{}" is now {}'.format(choice, existing_choice.votes))
 
-            existing_choice = db.session.query(Choice).filter_by(text=choice, word_id=word_id, tweetry_id=self.current_tweetry_id).first()
-            #If we do not have a choice created yet for the word that we are enumerating
-            if not existing_choice: #Create it
-                new_choice = Choice(text=choice, word_id=word_id, votes=1, tweetry_id=self.current_tweetry_id)
-                db.session.add(new_choice)
+        self.update_last_choice(ip_address, choice_id)
+
+        return 'Success'
+
+    #Updates the user's last choice and checks to see if we need to decrement the vote count
+    #or if the user is voting for the first time we add them to the ip list
+    def update_last_choice(self, ip_address, choice_id):
+
+        found = False   
+
+        for ip in self.voted_ips:
+            if(ip['ip'] == ip_address):
+                found = True
+                #Decrement last choice vote
+                last_choice = db.session.query(Choice).filter_by(id=ip['last_choice_id']).first()
+                last_choice.votes -= 1
+
+                if(last_choice.votes == 0):
+                    db.session.query(Choice).filter_by(id=ip['last_choice_id']).delete()
+
                 db.session.commit()
-                print('Tweetry Manager: A new choice was added: "{}"'.format(choice))
-            else:                   #or increase the vote count
-                existing_choice.votes += 1
-                db.session.commit()
-                print('Tweetry Manager: Choice Exists! Vote count for "{}" is now {}'.format(choice, existing_choice.votes))
+                ip['last_choice_id'] = choice_id
+
+        #Otherwise we add them to the list
+        if found == False:
+            self.voted_ips.append({ 
+                'ip' : ip_address,
+                'last_choice_id' : choice_id
+            })
 
         return
-
-    #Gets the top choices for the specified word and returns a dictionary of those choices
-    def get_top_choices(self, word_data):
-        
-        word_id = db.session.query(Word).filter_by(text=word_data['word'], position=word_data['position']).first().id
-        choices = db.session.query(Choice).filter_by(word_id=word_id, tweetry_id=self.current_tweetry_id).order_by(db.desc('votes')).all()
-
-        top_choices = {}
-        
-        for choice in choices:
-            top_choices[choice.text] = { 
-                'word'  : choice.text,
-                'votes' : choice.votes
-                }
-
-        return top_choices
 
     #Gets the top choice for specified word
     def get_top_choice(self, word_data):
@@ -102,6 +118,22 @@ class TweetryManager:
             return top_choice
         else:
             return 'Failed'
+
+    #Gets the top choices for the specified word and returns a dictionary of those choices
+    def get_top_choices(self, word_data):
+        
+        word_id = db.session.query(Word).filter_by(text=word_data['word'], position=word_data['position'], quote_id=self.get_current_tweetry().quote_id).first().id
+        choices = db.session.query(Choice).filter_by(word_id=word_id, tweetry_id=self.current_tweetry_id).order_by(db.desc('votes')).all()
+
+        top_choices = {}
+        
+        for choice in choices:
+            top_choices[choice.text] = { 
+                'word'  : choice.text,
+                'votes' : choice.votes
+            }
+
+        return top_choices
 
     #Returns the current tweetry object
     def get_current_tweetry(self):

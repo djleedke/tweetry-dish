@@ -104,7 +104,13 @@ header {
 .visible {
     visibility: visible !important;
     opacity: 1 !important;
-    transition: opacity 1s !important;
+    transition: all 1s !important;
+}
+
+.hidden {
+    visibility: hidden !important;
+    opacity:0 !important;
+    transition: all 1s !important;
 }
 
 #word-selector h1 {
@@ -241,7 +247,6 @@ header {
     position:fixed;
     visibility: hidden;
     opacity:0;
-    
 }
 
 #vote-button {
@@ -255,6 +260,11 @@ header {
     cursor: pointer;
     font-weight: bold;
 
+}
+
+.disabled {
+    background-color:#ff6666 !important;
+    cursor: default !important;
 }
 
 /*---------- Media Queries -----------*/

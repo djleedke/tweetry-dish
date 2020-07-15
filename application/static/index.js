@@ -5,19 +5,21 @@ var selectedWord = null;
 
 $(document).ready(function(){
 
+    //Getting the top choice for each of our user-editable elements
     $('.quote-word').each(function(){
         ele = $(this)
         getTopChoice(ele);
     });
+    console.log(voted);
 });
 
 /*---------- Key Handling ----------*/
 
+//Waiting for an enter key press and then getting results from datamuse
 $('#search-input').keypress(function(e) {
     if(e.which == 13){
 
         var input = $(this).val();
-        console.log(input);
         
         fetch("https://cors-anywhere.herokuapp.com/https://api.datamuse.com/sug?s=" + input)
             .then(response => response.json())
@@ -37,21 +39,22 @@ $(document).ready(function(){
         $(this).addClass('selected-quote-word');
         selectedWord = $(this)
 
-        //Some transition animations
+        //Some transition animations to show the word selector
         $('#quote').addClass('slide-up');
         $('#quote').addClass('bottom-bordered');
         $('#word-selector').addClass('visible');
 
-        //$('#search-input').focus();
-
         refreshTopChoices();
     });
 
+    //Saving our vote
     $('#vote-button').on('click', function(e){
-        saveChoice();
+        saveVote();
     });
 });
 
+//Adds click event to change the selected quote word and show the vote
+//footer at the bottom of the screen
 function addWordChoiceClickEvent(){
     $('.word-choice').on('click', function(e){
         clearSelectedWordChoice();
@@ -64,11 +67,18 @@ function addWordChoiceClickEvent(){
 /*---------- AJAX ----------*/
 
 //Saves the selected word choice to the database
-function saveChoice(){
+function saveVote(){
+
+    word_data = {
+        word : selectedWord.data('word'),
+        position : selectedWord.data('position'),
+        choice : selectedWord.html()
+    }
+
     $.ajax({
         type : 'POST',
-        url : '/save-choice',
-        data : JSON.stringify(getSelectedWords()),
+        url : '/save-vote',
+        data : JSON.stringify(word_data),
         contentType: 'application/json; charset=utf-8',
         success: function(result){
             refreshTopChoices();
@@ -94,8 +104,9 @@ function refreshTopChoices(){
     });
 }
 
+//Gets the top choice for the specified quote word element
 function getTopChoice(ele){
-    console.log(ele.data());
+    
     $.ajax({
         type : 'POST',
         url : '/top-choice',
@@ -111,6 +122,7 @@ function getTopChoice(ele){
 
 /*---------- Miscellaneous Functions -----------*/
 
+//Populates the search result ul with the provided data
 function populateSearchResults(data){
 
     $('#search-results').html(' ');
@@ -121,23 +133,15 @@ function populateSearchResults(data){
     addWordChoiceClickEvent();
 }
 
-function getSelectedWords(){
-
-    var selectedWords = [];
-
-    $('.quote-word').each(function(){
-        selectedWords.push($(this).html());
-    });
-
-    return selectedWords;
-}
-
+//Clears the selected word quote and replaces it with the current top choice
 function clearSelectedQuoteWord(){
     $('.quote-word').each(function(){
         $(this).removeClass('selected-quote-word');
+        getTopChoice($(this));
     });
 }
 
+//Clears the CSS from any currently selected word choices in word-selector
 function clearSelectedWordChoice(){
     $('.word-choice').each(function(){
         $(this).removeClass('selected-word-choice');
@@ -145,6 +149,7 @@ function clearSelectedWordChoice(){
 }
 
 /*---------- Page Ready---------*/
+//Show document when quote has been prepped
 $(document).ready(function(){
     $('html').show();
 });
