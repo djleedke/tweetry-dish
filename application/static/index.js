@@ -10,7 +10,6 @@ $(document).ready(function(){
         ele = $(this)
         getTopChoice(ele);
     });
-    console.log(voted);
 });
 
 /*---------- Key Handling ----------*/
@@ -96,9 +95,14 @@ function refreshTopChoices(){
         success: function(result){
             $('#top-words-list').html('');
 
-            for(var choice in result){
-                $('#top-words-list').append('<li><div class="word-choice" data-word=' + result[choice].word + '>' + result[choice].word + '<span>' + result[choice].votes + '</span></div></li>');
+            if(Object.keys(result).length > 0){
+                for(var choice in result){
+                    $('#top-words-list').append('<li><div class="word-choice" data-word=' + result[choice].word + '>' + result[choice].word + '<span>' + result[choice].votes + '</span></div></li>');
+                }
+            } else {
+                $('#top-words-list').append('<li><div class="no-top-words">No votes received, be the first!</div></li>');
             }
+
             addWordChoiceClickEvent();
         }
     });

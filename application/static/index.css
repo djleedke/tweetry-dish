@@ -8,7 +8,6 @@ html, body {
     height:100%;
     padding:0px;
     margin:0px;
-
 }
 
 header {
@@ -20,9 +19,7 @@ header {
 
 #logo {
     font-size: 1.5em;
-    padding: 10px 0 10px 20px;
-    
-    
+    padding: 10px 0 10px 20px; 
 }
 
 #content {
@@ -83,7 +80,6 @@ header {
     padding-left:20px;
     font-size:.8em;
 }
-
 
 .fa-floppy-o:hover {
     padding-left:20px;
@@ -147,13 +143,6 @@ header {
     padding-right:20px;
 }
 
-#top-words-list li:hover {
-    background-color: #87ccf8;
-    cursor: pointer;
-    color:black;
-}
-
-
 /*---------- Find Your Own Word ----------*/
 
 #find-your-own {
@@ -214,13 +203,13 @@ header {
     width:100%;
 }
 
-.word-choice {
+.word-choice, .no-top-words {
     padding-left:12px;
     padding-bottom:6px;
     padding-top:6px;
 }
 
-#find-your-own li:hover {
+.word-choice:hover {
     background-color: #87ccf8;
     cursor: pointer;
     color:black;
@@ -259,7 +248,6 @@ header {
     font-size:1.5em;
     cursor: pointer;
     font-weight: bold;
-
 }
 
 .disabled {
@@ -269,7 +257,6 @@ header {
 
 /*---------- Media Queries -----------*/
 @media only screen and (max-width:1000px) {
-
 
     /*---------- Quote ----------*/
     #quote {
@@ -338,7 +325,6 @@ header {
         margin-bottom:0px;
         border-radius:0px;
     }
-
     
     /*---------- Vote Button ----------*/
 

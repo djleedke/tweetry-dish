@@ -69,7 +69,7 @@ class TweetryManager:
             existing_choice.votes += 1
             db.session.commit()
             choice_id = existing_choice.id
-            print('Tweetry Manager: Choice Exists! Vote count for "{}" is now {}'.format(choice, existing_choice.votes))
+            print('Tweetry Manager: Choice Exists! Vote count for "{}" is now {}'.format(choice['choice'], existing_choice.votes))
 
         self.update_last_choice(ip_address, choice_id)
 
