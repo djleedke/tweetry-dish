@@ -9,7 +9,8 @@ class TweetryManager:
     def __init__(self):
         print('Tweetry Manager: Initialized')
         self.check_for_new_quotes()
-        self.current_tweetry_id = self.create_new_tweetry()
+        self.current_tweetry = self.create_new_tweetry()
+        print(self.current_tweetry.id)
 
     #Create new tweetry and add to database
     def create_new_tweetry(self):
@@ -17,7 +18,7 @@ class TweetryManager:
         db.session.add(tweetry)
         db.session.commit()
         self.voted_ips = []
-        return tweetry.id
+        return tweetry
 
     #Checks our quotes.py file to see if any new quotes have been added    
     def check_for_new_quotes(self):
@@ -56,11 +57,11 @@ class TweetryManager:
         if db.session.query(Word).filter_by(text=choice['choice'], id=word_id).first():
             return 'Failed'
 
-        existing_choice = db.session.query(Choice).filter_by(text=choice['choice'], word_id=word_id, tweetry_id=self.current_tweetry_id).first()
+        existing_choice = db.session.query(Choice).filter_by(text=choice['choice'], word_id=word_id, tweetry_id=self.current_tweetry.id).first()
         
         #If the choice already existed
         if not existing_choice: #Create it 
-            new_choice = Choice(text=choice['choice'], word_id=word_id, votes=1, tweetry_id=self.current_tweetry_id)
+            new_choice = Choice(text=choice['choice'], word_id=word_id, votes=1, tweetry_id=self.current_tweetry.id)
             db.session.add(new_choice)
             db.session.commit()
             choice_id = new_choice.id
@@ -107,7 +108,7 @@ class TweetryManager:
     def get_top_choice(self, word_data):
 
         word_id = db.session.query(Word).filter_by(text=word_data['word'], position=word_data['position']).first().id
-        choice = db.session.query(Choice).filter_by(word_id=word_id, tweetry_id=self.current_tweetry_id).order_by(db.desc('votes')).first()
+        choice = db.session.query(Choice).filter_by(word_id=word_id, tweetry_id=self.current_tweetry.id).order_by(db.desc('votes')).first()
 
         if choice:
             top_choice = {
@@ -123,7 +124,7 @@ class TweetryManager:
     def get_top_choices(self, word_data):
         
         word_id = db.session.query(Word).filter_by(text=word_data['word'], position=word_data['position'], quote_id=self.get_current_tweetry().quote_id).first().id
-        choices = db.session.query(Choice).filter_by(word_id=word_id, tweetry_id=self.current_tweetry_id).order_by(db.desc('votes')).all()
+        choices = db.session.query(Choice).filter_by(word_id=word_id, tweetry_id=self.current_tweetry.id).order_by(db.desc('votes')).limit(10).all()
 
         top_choices = {}
         
@@ -137,4 +138,4 @@ class TweetryManager:
 
     #Returns the current tweetry object
     def get_current_tweetry(self):
-        return db.session.query(Tweetry).filter_by(id=self.current_tweetry_id).first()
+        return db.session.query(Tweetry).filter_by(id=self.current_tweetry.id).first()

@@ -35,4 +35,3 @@ def top_choices():
         return tweetry_manager.get_top_choices(request.get_json())
     else:
         return 'Failed'
-

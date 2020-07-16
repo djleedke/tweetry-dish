@@ -27,7 +27,7 @@ class Tweetry(db.Model):
     choices = db.relationship('Choice', backref='tweetry', lazy=True)
 
     def __repr__(self):
-        return f"Tweetry('{ self.quote_id }, { self.choices }')"
+        return f"Tweetry('quote:{ self.quote.text }, choices:{ self.choices }')"
 
 class Choice(db.Model):
     id = db.Column(db.Integer, primary_key=True)
