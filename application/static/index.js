@@ -3,13 +3,17 @@ var selectedWord = null;
 
 /*---------- Initialization ----------*/
 
+
 $(document).ready(function(){
 
     //Getting the top choice for each of our user-editable elements
     $('.quote-word').each(function(){
-        ele = $(this)
-        getTopChoice(ele);
+        $(this).attr('data-tweetry-id', tweetryId);
+        $(this).attr('data-quote-id', quoteId);
+        getTopChoice($(this));
     });
+
+
 });
 
 /*---------- Key Handling ----------*/
@@ -69,6 +73,7 @@ function addWordChoiceClickEvent(){
 function saveVote(){
 
     word_data = {
+        tweetryId : tweetryId,
         word : selectedWord.data('word'),
         position : selectedWord.data('position'),
         choice : selectedWord.html()
@@ -80,7 +85,13 @@ function saveVote(){
         data : JSON.stringify(word_data),
         contentType: 'application/json; charset=utf-8',
         success: function(result){
-            refreshTopChoices();
+            //If the user is voting for an old tweetry we check on the server and refresh the page if it is
+            //Other wise we refresh the top choices
+            if(result === 'Refresh'){
+                location.reload();
+            } else {
+                refreshTopChoices();
+            }
         }
     });
 }
@@ -110,7 +121,6 @@ function refreshTopChoices(){
 
 //Gets the top choice for the specified quote word element
 function getTopChoice(ele){
-    
     $.ajax({
         type : 'POST',
         url : '/top-choice',
@@ -141,6 +151,7 @@ function populateSearchResults(data){
 function clearSelectedQuoteWord(){
     $('.quote-word').each(function(){
         $(this).removeClass('selected-quote-word');
+        
         getTopChoice($(this));
     });
 }

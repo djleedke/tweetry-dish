@@ -11,6 +11,7 @@ db = SQLAlchemy(app)
 from application.tweetry_manager import TweetryManager
 tweetry_manager = TweetryManager()
 
+from application import scheduler
 from application import routes
 
 
