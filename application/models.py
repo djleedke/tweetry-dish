@@ -5,6 +5,7 @@ class Quote(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     author = db.Column(db.String(), nullable=False)
     text = db.Column(db.String(), unique=True, nullable=False)
+    formatted_text = db.Column(db.String(), unique=True)
     words = db.relationship('Word', backref='quote', lazy=True)
     tweetry = db.relationship('Tweetry', backref='quote', lazy=True)
 

@@ -20,6 +20,8 @@ $(document).ready(function(){
 
 //Waiting for an enter key press and then getting results from datamuse
 $('#search-input').keypress(function(e) {
+
+    
     if(e.which == 13){
 
         var input = $(this).val();
@@ -29,6 +31,7 @@ $('#search-input').keypress(function(e) {
             .then(data => populateSearchResults(data));
 
     }
+
 });
 
 
@@ -138,7 +141,6 @@ function getTopChoice(ele){
 
 //Populates the search result ul with the provided data
 function populateSearchResults(data){
-
     $('#search-results').html(' ');
 
     for(i = 0; i < data.length; i++){

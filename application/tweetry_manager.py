@@ -24,24 +24,45 @@ class TweetryManager:
     #Checks our quotes.py file to see if any new quotes have been added    
     def check_for_new_quotes(self):
 
+        #Temporary
+        #db.drop_all()
+        #db.create_all()
+
         #Iterating over list of quotes in quotes.py
         for quote in quotes:
-
+            
             #If we have come across a quote that did not exist we insert it
             if not Quote.query.filter_by(text=quote['text']).first():
-                
+
                 new_quote = Quote(author=quote['author'], text=quote['text'])
                 db.session.add(new_quote)
                 db.session.commit()
-                
-                #We also insert the words associated with that quote that will be changed by the user
-                for index, word in enumerate(quote['words']):
 
-                    if not Word.query.filter_by(text=quote['text'], position=index, quote_id=new_quote.id).first():
-                        new_word = Word(text=word, position=index, quote_id=new_quote.id)
+                #Splitting our quote into separate words (no whitespace or punctuation)
+                word_list = re.split('([\s.,;()]+)', quote['text'])
+                formatted_text= ''
+
+                for word in word_list:
+
+                    position = 0
+
+                    #If it is a legit word (starts with a letter) we add it 
+                    if word and word[0].isalpha():
+
+                        new_word = Word(text=word, position=position, quote_id=new_quote.id)
                         db.session.add(new_word)
                         db.session.commit()
-                    
+
+                        #Our formatted text will be what is displayed on the page
+                        formatted_text += f'<span class="quote-word" data-position="{ position }" data-word="{ word }">{ word }</span>'
+                        
+                        position += 1
+                    else:
+                        formatted_text += word
+
+                new_quote.formatted_text = formatted_text
+                db.session.commit()
+
                 print('Tweetry Manager: A new quote was added.')
 
         return
