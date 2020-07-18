@@ -2,7 +2,7 @@
 from application.quotes import quotes
 from application.models import Quote, Word, Tweetry, Choice
 from application import db
-import random, re, json
+import random, re, json, tweepy, keys
 
 class TweetryManager:
 
@@ -218,5 +218,13 @@ class TweetryManager:
     def tweet_final_quote(self):
 
         final_quote = self.get_final_quote()
+
+        auth = tweepy.OAuthHandler(keys.api_key, keys.api_secret_key)
+        auth.set_access_token(keys.access_token, keys.access_token_secret)
+
+        api = tweepy.API(auth)
+
+        api.update_status(final_quote)
+
 
         return final_quote

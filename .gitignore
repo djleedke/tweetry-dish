@@ -4,6 +4,7 @@
 site.db
 init.bat
 test.py
+keys.py
 
 #My folders
 media/
