@@ -12,15 +12,6 @@ class TweetryManager:
         self.create_new_tweetry()
         print(self.current_tweetry_id)
 
-    #Create new tweetry and add to database
-    def create_new_tweetry(self):
-        tweetry = Tweetry(quote_id=random.randint(1, db.session.query(Quote).count()))
-        db.session.add(tweetry)
-        db.session.commit()
-        self.voted_ips = []
-        self.current_tweetry_id = tweetry.id
-        return
-
     #Checks our quotes.py file to see if any new quotes have been added    
     def check_for_new_quotes(self):
 
@@ -65,6 +56,15 @@ class TweetryManager:
 
                 print('Tweetry Manager: A new quote was added.')
 
+        return
+
+    #Create new tweetry and add to database
+    def create_new_tweetry(self):
+        tweetry = Tweetry(quote_id=random.randint(1, db.session.query(Quote).count()))
+        db.session.add(tweetry)
+        db.session.commit()
+        self.voted_ips = []
+        self.current_tweetry_id = tweetry.id
         return
 
     #Places a vote for the specified choice, voting multiple times will cause the 
@@ -179,6 +179,44 @@ class TweetryManager:
 
         return top_choices
 
-    #Returns the current tweetry object
+    #Constructs our current final quote and returns it in a string
+    def get_final_quote(self):
+
+        tweetry = db.session.query(Tweetry).filter_by(id=self.current_tweetry_id).first()
+        original_quote = tweetry.quote
+
+        word_list = re.split('([\s.,;()]+)', original_quote.text)
+
+        final_quote = ''
+
+        position = 0
+
+        for word in word_list:
+
+            if word and word[0].isalpha():
+
+                word_id = db.session.query(Word).filter_by(position=position, quote_id=tweetry.quote.id).first().id
+                top_choice = db.session.query(Choice).filter_by(tweetry_id=tweetry.id, word_id=word_id).first()
+                
+                if top_choice:
+                    final_quote += top_choice.text
+                else:
+                    final_quote += word
+
+                position += 1
+
+            else:
+                final_quote += word
+        
+        return final_quote
+    
+    #Returns the current tweetry object from the database
     def get_current_tweetry(self):
         return db.session.query(Tweetry).filter_by(id=self.current_tweetry_id).first()
+
+    #Tweets our newly created quote
+    def tweet_final_quote(self):
+
+        final_quote = self.get_final_quote()
+
+        return final_quote

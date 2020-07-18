@@ -9,8 +9,6 @@ def index():
         'tweetry' : tweetry_manager.get_current_tweetry()
     }
 
-    
-
     return render_template('index.html', data=data)
 
 
