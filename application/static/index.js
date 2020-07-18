@@ -6,13 +6,14 @@ var selectedWord = null;
 
 $(document).ready(function(){
 
+    
     //Getting the top choice for each of our user-editable elements
     $('.quote-word').each(function(){
         $(this).attr('data-tweetry-id', tweetryId);
         $(this).attr('data-quote-id', quoteId);
-        getTopChoice($(this));
     });
 
+    refreshQuoteWords();
 
 });
 
@@ -34,14 +35,13 @@ $('#search-input').keypress(function(e) {
 
 });
 
-
 /*---------- On Click Events ----------*/
 
 $(document).ready(function(){
     
     //Clicking one of our selectable words in the quote
     $('.quote-word').on('click', function(e){
-        clearSelectedQuoteWord();
+        clearSelectedQuoteWord(selectedWord);
         $(this).addClass('selected-quote-word');
         selectedWord = $(this)
 
@@ -50,7 +50,7 @@ $(document).ready(function(){
         $('#quote').addClass('bottom-bordered');
         $('#word-selector').addClass('visible');
 
-        refreshTopChoices();
+        refreshTopChoiceList();
     });
 
     //Saving our vote
@@ -93,17 +93,49 @@ function saveVote(){
             if(result === 'Refresh'){
                 location.reload();
             } else {
-                refreshTopChoices();
+                refreshTopChoiceList();
+                refreshQuoteWords();
             }
         }
     });
 }
 
-//Refreshes list of the top choices for the currently selected word
-function refreshTopChoices(){
+//Refreshes each of the quote words with the top choice for that word
+function refreshQuoteWords(){
+
+    var quoteWords = $('.quote-word').map(function(){
+        return $(this).data();
+    }).get();
+
     $.ajax({
         type : 'POST',
-        url : '/top-choices',
+        url : '/refresh-quote-words',
+        data : JSON.stringify(quoteWords),
+        contentType: 'application/json; charset=utf-8',
+        success: function(result){
+            console.log(result);
+
+            $('.quote-word').each(function(){
+                //Checking the results against each quote word's id, if we have
+                // a match we change the html
+                for(i = 0; i < result.length; i++){
+                    if($(this).data('wordId') === result[i]['wordId']){
+                        $(this).html(result[i]['topChoice']);
+                        break;
+                    } else {
+                        $(this).html($(this).data('word'));
+                    }
+                }
+            });
+        }
+    });
+}
+
+//Refreshes the list of the top choices for the currently selected word
+function refreshTopChoiceList(){
+    $.ajax({
+        type : 'POST',
+        url : '/refresh-top-choice-list',
         data : JSON.stringify(selectedWord.data()),
         contentType: 'application/json; charset=utf-8',
         success: function(result){
@@ -150,12 +182,15 @@ function populateSearchResults(data){
 }
 
 //Clears the selected word quote and replaces it with the current top choice
-function clearSelectedQuoteWord(){
-    $('.quote-word').each(function(){
-        $(this).removeClass('selected-quote-word');
-        
-        getTopChoice($(this));
-    });
+function clearSelectedQuoteWord(ele){
+
+    if(ele !== null){
+        ele.removeClass('selected-quote-word');
+        //getTopChoice(ele);
+        refreshQuoteWords();
+        console.log('hey');
+    }
+
 }
 
 //Clears the CSS from any currently selected word choices in word-selector

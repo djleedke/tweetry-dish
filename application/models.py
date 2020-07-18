@@ -20,7 +20,7 @@ class Word(db.Model):
     choices = db.relationship('Choice', backref='word', lazy=True) 
 
     def __repr__(self):
-        return f"Word('{ self.text }, { self.position }, { self.quote_id }')"
+        return f"Word(text:'{ self.text }, position:{ self.position }, quote_id:{ self.quote_id }')"
 
 class Tweetry(db.Model):
     id = db.Column(db.Integer, primary_key=True)

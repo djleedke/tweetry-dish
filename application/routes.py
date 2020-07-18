@@ -9,6 +9,8 @@ def index():
         'tweetry' : tweetry_manager.get_current_tweetry()
     }
 
+    
+
     return render_template('index.html', data=data)
 
 
@@ -28,10 +30,17 @@ def top_choice():
     else:
         return 'Failed'
 
-@app.route('/top-choices', methods=['GET', 'POST'])
+@app.route('/refresh-quote-words', methods=['GET', 'POST'])
+def top_choice_for_words():
+    if request.method == 'POST': 
+        return jsonify(tweetry_manager.get_top_choice_for_words(request.get_json()))
+    else:
+        return 'Failed'
+
+@app.route('/refresh-top-choice-list', methods=['GET', 'POST'])
 def top_choices():
     
     if request.method == 'POST': 
-        return tweetry_manager.get_top_choices(request.get_json())
+        return tweetry_manager.get_top_choice_list(request.get_json())
     else:
         return 'Failed'

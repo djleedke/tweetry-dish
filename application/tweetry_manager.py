@@ -2,7 +2,7 @@
 from application.quotes import quotes
 from application.models import Quote, Word, Tweetry, Choice
 from application import db
-import random, re
+import random, re, json
 
 class TweetryManager:
 
@@ -25,8 +25,8 @@ class TweetryManager:
     def check_for_new_quotes(self):
 
         #Temporary
-        #db.drop_all()
-        #db.create_all()
+        db.drop_all()
+        db.create_all()
 
         #Iterating over list of quotes in quotes.py
         for quote in quotes:
@@ -42,9 +42,9 @@ class TweetryManager:
                 word_list = re.split('([\s.,;()]+)', quote['text'])
                 formatted_text= ''
 
-                for word in word_list:
+                position = 0
 
-                    position = 0
+                for word in word_list:
 
                     #If it is a legit word (starts with a letter) we add it 
                     if word and word[0].isalpha():
@@ -54,8 +54,8 @@ class TweetryManager:
                         db.session.commit()
 
                         #Our formatted text will be what is displayed on the page
-                        formatted_text += f'<span class="quote-word" data-position="{ position }" data-word="{ word }">{ word }</span>'
-                        
+                        formatted_text += f'<span class="quote-word" data-position="{ position }" data-word="{ word }" data-word-id="{ new_word.id }">{ word }</span>'
+
                         position += 1
                     else:
                         formatted_text += word
@@ -134,8 +134,7 @@ class TweetryManager:
     #Gets the top choice for specified word
     def get_top_choice(self, word_data):
 
-        word_id = db.session.query(Word).filter_by(text=word_data['word'], position=word_data['position']).first().id
-        choice = db.session.query(Choice).filter_by(word_id=word_id, tweetry_id=word_data['tweetryId']).order_by(db.desc('votes')).first()
+        choice = db.session.query(Choice).filter_by(word_id=word_data['wordId'], tweetry_id=word_data['tweetryId']).order_by(db.desc('votes')).first()
 
         if choice:
             top_choice = {
@@ -147,17 +146,34 @@ class TweetryManager:
         else:
             return 'Failed'
 
-    #Gets the top choices for the specified word and returns a dictionary of those choices
-    def get_top_choices(self, word_data):
+    #Returns a list of the top choice for each of the specified words
+    def get_top_choice_for_words(self, words_data):
 
-        word_id = db.session.query(Word).filter_by(text=word_data['word'], position=word_data['position'], quote_id=word_data['quoteId']).first().id
-        choices = db.session.query(Choice).filter_by(word_id=word_id, tweetry_id=word_data['tweetryId']).order_by(db.desc('votes')).limit(10).all()
+        top_choice_list = []
+
+        for word in words_data:
+
+            top_choice = db.session.query(Choice).filter_by(word_id=word['wordId'], tweetry_id=word['tweetryId']).order_by(db.desc('votes')).first()
+
+            if top_choice:
+                top_choice_list.append( {
+                    'topChoice' : top_choice.text,
+                    'wordId' : top_choice.word_id,
+                    'votes' : top_choice.votes
+                })  
+
+        return top_choice_list
+
+    #Gets the top choices for the specified word and returns a dictionary of those choices
+    def get_top_choice_list(self, word_data):
+
+        choices = db.session.query(Choice).filter_by(word_id=word_data['wordId'], tweetry_id=word_data['tweetryId']).order_by(db.desc('votes')).limit(10).all()
 
         top_choices = {}
         
         for choice in choices:
             top_choices[choice.text] = { 
-                'word'  : choice.text,
+                'word'  : choice.text,     
                 'votes' : choice.votes
             }
 
