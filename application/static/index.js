@@ -30,6 +30,7 @@ $('#search-input').keypress(function(e) {
         $('#search-results').html('');
         $('#search-results').append('<div class="loader-container"><div class="loader"></div>');
         
+
         fetch("https://cors-anywhere.herokuapp.com/https://api.datamuse.com/sug?s=" + input)
             .then(response => response.json())
             .then(data => populateSearchResults(data));
@@ -144,16 +145,23 @@ function refreshTopChoiceList(){
         contentType: 'application/json; charset=utf-8',
         success: function(result){
             $('#top-words-list').html('');
+            $('#top-words-list').append('<div class="loader-container"><div class="loader"></div>');
 
-            if(Object.keys(result).length > 0){
-                for(var choice in result){
-                    $('#top-words-list').append('<li><div class="word-choice" data-word=' + result[choice].word + '>' + result[choice].word + '<span>' + result[choice].votes + '</span></div></li>');
+            setTimeout(function(){
+
+                $('#top-words-list').html('');
+                
+                if(Object.keys(result).length > 0){
+                    for(var choice in result){
+                        $('#top-words-list').append('<li><div class="word-choice" data-word=' + result[choice].word + '>' + result[choice].word + '<span>' + result[choice].votes + '</span></div></li>');
+                    }
+                } else {
+                    $('#top-words-list').append('<li><div class="no-top-words">No votes received, be the first!</div></li>');
                 }
-            } else {
-                $('#top-words-list').append('<li><div class="no-top-words">No votes received, be the first!</div></li>');
-            }
 
-            addWordChoiceClickEvent();
+                addWordChoiceClickEvent();
+
+            }, 1000);
         }
     });
 }
@@ -177,12 +185,18 @@ function getTopChoice(ele){
 
 //Populates the search result ul with the provided data
 function populateSearchResults(data){
-    $('#search-results').html(' ');
 
-    for(i = 0; i < data.length; i++){
-        $('#search-results').append('<li><div class="word-choice" data-word=' + data[i].word + '>' + data[i].word + '</div></li>')
-    }
-    addWordChoiceClickEvent();
+    //Add a little timeout so it looks like it's thinking
+    setTimeout(function(){
+
+        $('#search-results').html(' ');
+
+        for(i = 0; i < data.length; i++){
+            $('#search-results').append('<li><div class="word-choice" data-word=' + data[i].word + '>' + data[i].word + '</div></li>')
+        }
+        addWordChoiceClickEvent();
+
+    }, 1000);
 }
 
 //Clears the selected word quote and replaces it with the current top choice

@@ -195,7 +195,6 @@ header {
 
 .loader {
     margin:0 auto;
-    padding:5px;
     border: 8px solid lightgrey;
     border-radius: 50%;
     border-top: 8px solid #3498db;
@@ -203,6 +202,7 @@ header {
     height: 20px;
     -webkit-animation: spin 1.5s linear infinite; /* Safari */
     animation: spin 1.5s linear infinite;
+    
 }
 
 /* Safari */
@@ -295,6 +295,7 @@ header {
         position:sticky;
         top:0;
         background-color:inherit;
+        z-index:1;
     }
 
     .bottom-bordered {
