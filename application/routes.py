@@ -9,7 +9,7 @@ def index():
         'tweetry' : tweetry_manager.get_current_tweetry()
     }
 
-    tweetry_manager.tweet_final_quote()
+    #tweetry_manager.tweet_final_quote()
 
     return render_template('index.html', data=data)
 

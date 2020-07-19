@@ -59,9 +59,12 @@ header {
     cursor: pointer;
 }
 
+.top-choice {
+    background-color:#56b8f5;
+}
+
 .selected-quote-word {
     background-color:#0b7bc1;
-    color:white;
 }
 
 .selected-quote-word:hover {

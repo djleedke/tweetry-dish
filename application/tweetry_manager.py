@@ -2,7 +2,7 @@
 from application.quotes import quotes
 from application.models import Quote, Word, Tweetry, Choice
 from application import db
-import random, re, json, tweepy, keys
+import random, re, json, datetime, tweepy, keys
 
 class TweetryManager:
 
@@ -207,6 +207,8 @@ class TweetryManager:
 
             else:
                 final_quote += word
+
+        final_quote += f' - {original_quote.author}'
         
         return final_quote
     
@@ -217,14 +219,16 @@ class TweetryManager:
     #Tweets our newly created quote
     def tweet_final_quote(self):
 
-        final_quote = self.get_final_quote()
+        try:
+            final_quote = self.get_final_quote()
 
-        auth = tweepy.OAuthHandler(keys.api_key, keys.api_secret_key)
-        auth.set_access_token(keys.access_token, keys.access_token_secret)
+            auth = tweepy.OAuthHandler(keys.api_key, keys.api_secret_key)
+            auth.set_access_token(keys.access_token, keys.access_token_secret)
 
-        api = tweepy.API(auth)
+            api = tweepy.API(auth)
 
-        api.update_status(final_quote)
-
+            api.update_status(f'{final_quote} - {datetime.datetime.now().date()}')
+        except:
+            print('Tweet failed to post.')
 
         return final_quote

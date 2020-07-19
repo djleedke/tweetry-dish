@@ -113,7 +113,6 @@ function refreshQuoteWords(){
         data : JSON.stringify(quoteWords),
         contentType: 'application/json; charset=utf-8',
         success: function(result){
-            console.log(result);
 
             $('.quote-word').each(function(){
                 //Checking the results against each quote word's id, if we have
@@ -121,8 +120,10 @@ function refreshQuoteWords(){
                 for(i = 0; i < result.length; i++){
                     if($(this).data('wordId') === result[i]['wordId']){
                         $(this).html(result[i]['topChoice']);
+                        $(this).addClass('top-choice')
                         break;
                     } else {
+                        $(this).removeClass('top-choice')
                         $(this).html($(this).data('word'));
                     }
                 }
@@ -186,9 +187,7 @@ function clearSelectedQuoteWord(ele){
 
     if(ele !== null){
         ele.removeClass('selected-quote-word');
-        //getTopChoice(ele);
         refreshQuoteWords();
-        console.log('hey');
     }
 
 }
