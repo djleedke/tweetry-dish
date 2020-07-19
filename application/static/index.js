@@ -26,6 +26,9 @@ $('#search-input').keypress(function(e) {
     if(e.which == 13){
 
         var input = $(this).val();
+
+        $('#search-results').html('');
+        $('#search-results').append('<div class="loader-container"><div class="loader"></div>');
         
         fetch("https://cors-anywhere.herokuapp.com/https://api.datamuse.com/sug?s=" + input)
             .then(response => response.json())

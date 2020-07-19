@@ -188,6 +188,34 @@ header {
     color:grey;
 }
 
+.loader-container {
+    padding-top:10px;
+    padding-bottom: 10px;
+}
+
+.loader {
+    margin:0 auto;
+    padding:5px;
+    border: 8px solid lightgrey;
+    border-radius: 50%;
+    border-top: 8px solid #3498db;
+    width: 20px;
+    height: 20px;
+    -webkit-animation: spin 1.5s linear infinite; /* Safari */
+    animation: spin 1.5s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+}
+  
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
 #search-results {
     margin-top:0px;
     width:87%;
