@@ -64,7 +64,7 @@ class TweetryManager:
 
     #Places a vote for the specified choice, voting multiple times will cause the 
     #user's prior vote to be removed each time
-    def save_vote(self, choice, ip_address):
+    def save_vote(self, choice):
 
         current_tweetry = self.get_current_tweetry()
 

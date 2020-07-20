@@ -11,8 +11,6 @@ def index():
         'tweetry' : tweetry_manager.get_current_tweetry()
     }
 
-    #tweetry_manager.tweet_final_quote()
-
     return render_template('index.html', data=data)
 
 #---------- AJAX -----------
@@ -20,17 +18,7 @@ def index():
 @app.route('/save-vote', methods=['GET', 'POST'])
 def save_vote():
     if request.method == 'POST':
-        
-        #IP address tracking for heroku
-        try:
-            user_ip = request.headers['X-Forwarded-For']
-            ip_list = user_ip.split(',')
-            user_ip = ip_list[-1]
-        except:
-            user_ip = request.remote_addr
-
-
-        return tweetry_manager.save_vote(request.get_json(), user_ip)
+        return tweetry_manager.save_vote(request.get_json())
     else:
         return 'Failed'
 
