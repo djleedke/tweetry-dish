@@ -1,6 +1,7 @@
 
 from flask import render_template, request, jsonify
 from application import app, tweetry_manager
+from application import app
 
 @app.route('/')
 def index():
@@ -8,11 +9,10 @@ def index():
     data = {
         'tweetry' : tweetry_manager.get_current_tweetry()
     }
-
+    print(request.sid)
     #tweetry_manager.tweet_final_quote()
 
     return render_template('index.html', data=data)
-
 
 #---------- AJAX -----------
 

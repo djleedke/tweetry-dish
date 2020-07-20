@@ -8,16 +8,9 @@ class TweetryManager:
 
     def __init__(self):
         print('Tweetry Manager: Initialized')
-        self.check_for_new_quotes()
-        self.create_new_tweetry()
-        print(self.current_tweetry_id)
 
     #Checks our quotes.py file to see if any new quotes have been added    
     def check_for_new_quotes(self):
-
-        #Temporary
-        db.drop_all()
-        db.create_all()
 
         #Iterating over list of quotes in quotes.py
         for quote in quotes:
