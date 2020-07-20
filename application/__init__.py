@@ -16,21 +16,24 @@ tweetry_manager = TweetryManager()
 #from application import scheduler
 from application import routes
 
-@app.before_first_request
-def init_tweetry():
-    tweetry_manager.check_for_new_quotes()
+@click.command(name='create_new_tweetry')
+@with_appcontext
+def create_new_tweetry():
     tweetry_manager.create_new_tweetry()
 
 @click.command(name='create_tables')
 @with_appcontext
 def create_tables():
     db.create_all()
+    tweetry_manager.check_for_new_quotes()
+    tweetry_manager.create_new_tweetry()
 
 @click.command(name='drop_tables')
 @with_appcontext
 def drop_tables():
     db.drop_all()
 
+app.cli.add_command(create_new_tweetry)
 app.cli.add_command(create_tables)
 app.cli.add_command(drop_tables)
 

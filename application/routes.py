@@ -2,6 +2,7 @@
 from flask import render_template, request, jsonify
 from application import app, tweetry_manager
 from application import app
+import uuid
 
 @app.route('/')
 def index():
@@ -19,7 +20,17 @@ def index():
 @app.route('/save-vote', methods=['GET', 'POST'])
 def save_vote():
     if request.method == 'POST':
-        return tweetry_manager.save_vote(request.get_json(), request.remote_addr)
+        
+        #IP address tracking for heroku
+        try:
+            user_ip = request.headers['X-Forwarded-For']
+            ip_list = user_ip.split(',')
+            user_ip = ip_list[-1]
+        except:
+            user_ip = request.remote_addr
+
+
+        return tweetry_manager.save_vote(request.get_json(), user_ip)
     else:
         return 'Failed'
 

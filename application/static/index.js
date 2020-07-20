@@ -6,7 +6,6 @@ var selectedWord = null;
 
 $(document).ready(function(){
 
-    
     //Getting the top choice for each of our user-editable elements
     $('.quote-word').each(function(){
         $(this).attr('data-tweetry-id', tweetryId);
@@ -22,7 +21,6 @@ $(document).ready(function(){
 //Waiting for an enter key press and then getting results from datamuse
 $('#search-input').keypress(function(e) {
 
-    
     if(e.which == 13){
 
         var input = $(this).val();
@@ -80,6 +78,7 @@ function addWordChoiceClickEvent(){
 function saveVote(){
 
     word_data = {
+        lastChoice : getCookie('last_choice'),
         tweetryId : tweetryId,
         word : selectedWord.data('word'),
         position : selectedWord.data('position'),
@@ -99,6 +98,7 @@ function saveVote(){
             } else {
                 refreshTopChoiceList();
                 refreshQuoteWords();
+                setLastChoiceCookie(result);
             }
         }
     });
@@ -214,6 +214,19 @@ function clearSelectedWordChoice(){
     $('.word-choice').each(function(){
         $(this).removeClass('selected-word-choice');
     });
+}
+
+//Setting a cookie for 1 hour that will prevent the user from voting more than once
+function setLastChoiceCookie(choiceId){
+    var now = new Date();
+    now.setTime(now.getTime() + 1 * 3600 * 1000); //1 hour
+    document.cookie = 'last_choice='+ choiceId + '; expires=' + now.toUTCString() + ';';
+}
+
+//Retrievews the specified cookie's value
+function getCookie(cookieName){
+    var cookieString=RegExp(cookieName+"=[^;]+").exec(document.cookie);
+    return decodeURIComponent(!!cookieString ? cookieString.toString().replace(/^[^=]+./,"") : "");
 }
 
 /*---------- Page Ready---------*/

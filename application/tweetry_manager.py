@@ -6,9 +6,6 @@ import random, re, json, datetime, tweepy, keys
 
 class TweetryManager:
 
-    def __init__(self):
-        print('Tweetry Manager: Initialized')
-
     #Checks our quotes.py file to see if any new quotes have been added    
     def check_for_new_quotes(self):
 
@@ -53,11 +50,16 @@ class TweetryManager:
 
     #Create new tweetry and add to database
     def create_new_tweetry(self):
-        tweetry = Tweetry(quote_id=random.randint(1, db.session.query(Quote).count()))
-        db.session.add(tweetry)
+
+        old_tweetry = db.session.query(Tweetry).filter_by(is_active=True).first()
+
+        if old_tweetry:
+            old_tweetry.is_active = False
+            db.session.commit()
+
+        new_tweetry = Tweetry(quote_id=random.randint(1, db.session.query(Quote).count()))
+        db.session.add(new_tweetry)
         db.session.commit()
-        self.voted_ips = []
-        self.current_tweetry_id = tweetry.id
         return
 
     #Places a vote for the specified choice, voting multiple times will cause the 
@@ -92,35 +94,24 @@ class TweetryManager:
             choice_id = existing_choice.id
             print('Tweetry Manager: Choice Exists! Vote count for "{}" is now {}'.format(choice['choice'], existing_choice.votes))
 
-        self.update_last_choice(ip_address, choice_id)
+        #If we passed in a last choice value we need to decrement the user's last vote
+        if choice['lastChoice']:
+            self.update_last_choice(choice['lastChoice'], current_tweetry.id)
 
-        return 'Success'
+        return str(choice_id)
 
     #Updates the user's last choice and checks to see if we need to decrement the vote count
-    #or if the user is voting for the first time we add them to the ip list
-    def update_last_choice(self, ip_address, choice_id):
+    def update_last_choice(self, choice_id, tweetry_id):
 
-        found = False   
+        last_choice = db.session.query(Choice).filter_by(id=choice_id, tweetry_id=tweetry_id).first()
 
-        for ip in self.voted_ips:
-            if(ip['ip'] == ip_address):
-                found = True
-                #Decrement last choice vote
-                last_choice = db.session.query(Choice).filter_by(id=ip['last_choice_id']).first()
-                last_choice.votes -= 1
+        if last_choice:
+            last_choice.votes -= 1
 
-                if(last_choice.votes == 0):
-                    db.session.query(Choice).filter_by(id=ip['last_choice_id']).delete()
+            if(last_choice.votes == 0):
+                db.session.query(Choice).filter_by(id=choice_id).delete()
 
-                db.session.commit()
-                ip['last_choice_id'] = choice_id
-
-        #Otherwise we add them to the list
-        if found == False:
-            self.voted_ips.append({ 
-                'ip' : ip_address,
-                'last_choice_id' : choice_id
-            })
+            db.session.commit()
 
         return
 
@@ -175,7 +166,7 @@ class TweetryManager:
     #Constructs our current final quote and returns it in a string
     def get_final_quote(self):
 
-        tweetry = db.session.query(Tweetry).filter_by(id=self.current_tweetry_id).first()
+        tweetry = get_current_tweetry()
         original_quote = tweetry.quote
 
         word_list = re.split('([\s.,;()]+)', original_quote.text)
@@ -207,7 +198,7 @@ class TweetryManager:
     
     #Returns the current tweetry object from the database
     def get_current_tweetry(self):
-        return db.session.query(Tweetry).filter_by(id=self.current_tweetry_id).first()
+        return db.session.query(Tweetry).filter_by(is_active=True).first()
 
     #Tweets our newly created quote
     def tweet_final_quote(self):
