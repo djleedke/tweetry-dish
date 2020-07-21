@@ -166,7 +166,7 @@ class TweetryManager:
     #Constructs our current final quote and returns it in a string
     def get_final_quote(self):
 
-        tweetry = get_current_tweetry()
+        tweetry = self.get_current_tweetry()
         original_quote = tweetry.quote
 
         word_list = re.split('([\s.,;()]+)', original_quote.text)
@@ -203,9 +203,9 @@ class TweetryManager:
     #Tweets our newly created quote
     def tweet_final_quote(self):
 
-        try:
-            final_quote = self.get_final_quote()
+        final_quote = self.get_final_quote()
 
+        try:
             auth = tweepy.OAuthHandler(keys.api_key, keys.api_secret_key)
             auth.set_access_token(keys.access_token, keys.access_token_secret)
 
