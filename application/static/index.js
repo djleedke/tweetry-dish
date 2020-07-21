@@ -53,6 +53,7 @@ $(document).ready(function(){
         $('#word-selector').addClass('visible');
 
         refreshTopChoiceList();
+        clearSelectedWordChoice();
     });
 
     //Saving our vote
@@ -142,6 +143,7 @@ function refreshQuoteWords(){
 
                 $('#vote-footer').removeClass('visible');
                 $('#vote-footer').addClass('hidden');
+                mobileShowTopWords();
             });
         }
     });
@@ -239,6 +241,47 @@ function getCookie(cookieName){
     var cookieString=RegExp(cookieName+"=[^;]+").exec(document.cookie);
     return decodeURIComponent(!!cookieString ? cookieString.toString().replace(/^[^=]+./,"") : "");
 }
+
+/*---------- Mobile Only ----------*/
+
+
+function mobileShowTopWords(){
+    if($(document).width() < 1200){
+        $('#find-your-own').css('display', 'none');
+        $('#top-words').css('display', 'inline-block');
+    } 
+}
+
+function mobileShowFindYourOwn(){
+    if($(document).width() < 1200){
+        $('#find-your-own').css('display', 'inline-block');
+        $('#top-words').css('display', 'none');
+    } 
+}
+
+$(document).ready(function(){
+
+    //Hide top words, show search
+    $('#mobile-search-toggle').on('click', function(){
+        mobileShowFindYourOwn();
+    });
+
+    //Hide search, show top words
+    $('#mobile-top-word-toggle').on('click', function(){
+        mobileShowTopWords();
+    });
+
+    //Putting them both back if we resize
+    $(window).resize(function(){
+        if($(document).width() > 1200){
+            $('#find-your-own').css('display', 'inline-block');
+            $('#top-words').css('display', 'inline-block');
+        } else {
+            mobileShowTopWords();
+        }
+    });
+
+});
 
 /*---------- Page Ready---------*/
 //Show document when quote has been prepped

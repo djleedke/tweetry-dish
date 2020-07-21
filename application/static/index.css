@@ -75,19 +75,7 @@ header {
 #quote-author {
     margin-top:10px;
     float:right;
-    font-size:2.5em;
-}
-
-.fa-floppy-o {
-    padding-left:20px;
-    font-size:.8em;
-}
-
-.fa-floppy-o:hover {
-    padding-left:20px;
-    font-size:.8em;
-    color: #0b7bc1;
-    cursor: pointer;
+    font-size:2.5vw;
 }
 
 /*---------- Word Selector ----------*/
@@ -146,6 +134,11 @@ header {
     padding-right:20px;
 }
 
+#mobile-search-toggle {
+    display: none;
+}
+
+
 /*---------- Find Your Own Word ----------*/
 
 #find-your-own {
@@ -167,6 +160,10 @@ header {
     width:5%;
     padding-left:2.5%;
     padding-right:2.5%;
+}
+
+.fa-arrow-right {
+    font-size:1.5em;
 }
 
 #find-your-own input {
@@ -214,6 +211,10 @@ header {
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+#mobile-top-word-toggle {
+    display:none;
 }
 
 #search-results {
@@ -303,29 +304,22 @@ header {
     cursor: default !important;
 }
 
+
+
 /*---------- Media Queries -----------*/
-@media only screen and (max-width:1000px) {
+@media only screen and (max-width:1200px) {
 
     /*---------- Quote ----------*/
     #quote {
-        padding:5% 5% 15% 5%;
-        position:-webkit-sticky;
-        position:sticky;
+        padding:10% 5% 15% 5%;
         top:0;
         background-color:inherit;
         z-index:1;
+        max-height:50%;
     }
 
     .bottom-bordered {
         border-bottom: solid 2px #0b7bc1;
-    }
-
-    #quote-text {
-        font-size:8vw;
-    }
-
-    #quote-author {
-        font-size:5vw;
     }
 
     .slide-up {
@@ -353,11 +347,21 @@ header {
         border-radius:0px;
     }
 
+    #mobile-search-toggle {
+        display:block;
+        float:right;
+        font-size:1em;
+        padding-right:15px;
+        cursor: pointer;
+    }
+    
+
     /*---------- Find Your Own Word -----------*/
 
     #find-your-own {
         width:100%;
         padding:0;
+        display:none;
     }
 
     #search-bar {
@@ -374,6 +378,17 @@ header {
         margin-bottom:0px;
         border-radius:0px;
     }
+
+    #mobile-top-word-toggle {
+        display:block;
+        font-size:1.5em;
+        font-weight: bold;
+        text-align: center;
+        padding-top:10px;
+        padding-bottom:10px;
+        background-color:#0d8bd9;
+        cursor:pointer;
+    }
     
     /*---------- Vote Button ----------*/
 
@@ -386,6 +401,23 @@ header {
         height:60px;
         margin:0px;
     }
+}
 
+@media only screen and (max-width:1200px){
+    #quote-text {
+        font-size:4vw;
+    }
+    #quote-author {
+        font-size:3vw;
+    }
+}
 
+@media only screen and (max-width:800px){
+    #quote-text {
+        font-size:8vw;
+    }
+
+    #quote-author {
+        font-size:7vw;
+    }
 }
