@@ -98,7 +98,11 @@ function saveVote(){
             } else {
                 refreshTopChoiceList();
                 refreshQuoteWords();
-                setLastChoiceCookie(result);
+
+                if(result !== 'Failed'){
+                    setLastChoiceCookie(result);
+                }
+                
             }
         }
     });
@@ -161,7 +165,7 @@ function refreshTopChoiceList(){
 
                 addWordChoiceClickEvent();
 
-            }, 1000);
+            }, 300);
         }
     });
 }
