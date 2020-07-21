@@ -114,7 +114,8 @@ header {
 #word-selector h1 {
     margin:0px;
     height:40px;
-    border-radius: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
     font-size: 1.5em;
     background-color: #0b7bc1;
     text-align: center;
@@ -130,7 +131,7 @@ header {
 }
 
 #top-words-list {
-    margin-top:0px;
+    margin:0px;
     background-color: white;
     color:black;
     border-bottom-left-radius: 5px;
@@ -195,14 +196,13 @@ header {
 
 .loader {
     margin:0 auto;
-    border: 8px solid lightgrey;
+    border: 6px solid lightgrey;
     border-radius: 50%;
-    border-top: 8px solid #3498db;
-    width: 20px;
-    height: 20px;
+    border-top: 6px solid #3498db;
+    width: 12px;
+    height: 12px;
     -webkit-animation: spin 1.5s linear infinite; /* Safari */
     animation: spin 1.5s linear infinite;
-    
 }
 
 /* Safari */
@@ -233,10 +233,19 @@ header {
     width:100%;
 }
 
-.word-choice, .no-top-words {
+.word-choice {
     padding-left:12px;
-    padding-bottom:6px;
-    padding-top:6px;
+    padding-bottom:8px;
+    padding-top:8px;
+    height:28px;
+    
+}
+
+.no-top-words {
+    padding-left:12px;
+    height:28px;
+    padding-bottom:8px;
+    padding-top:8px;
 }
 
 .word-choice:hover {
@@ -278,6 +287,15 @@ header {
     font-size:1.5em;
     cursor: pointer;
     font-weight: bold;
+    
+}
+
+#vote-button:focus {
+    outline: none;
+}
+
+#vote-button:hover {
+    background-color:#8cc851;
 }
 
 .disabled {

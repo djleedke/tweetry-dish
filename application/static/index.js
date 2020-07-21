@@ -68,6 +68,8 @@ function addWordChoiceClickEvent(){
         clearSelectedWordChoice();
         $(this).addClass('selected-word-choice');
         selectedWord.html($(this).data('word'));
+
+        $('#vote-footer').removeClass('hidden');
         $('#vote-footer').addClass('visible');
     });
 }
@@ -103,6 +105,8 @@ function saveVote(){
                     setLastChoiceCookie(result);
                 }
                 
+                $('#vote-footer').removeClass('visible');
+                $('#vote-footer').addClass('hidden');
             }
         }
     });
@@ -135,6 +139,9 @@ function refreshQuoteWords(){
                         $(this).html($(this).data('word'));
                     }
                 }
+
+                $('#vote-footer').removeClass('visible');
+                $('#vote-footer').addClass('hidden');
             });
         }
     });
@@ -165,7 +172,7 @@ function refreshTopChoiceList(){
 
                 addWordChoiceClickEvent();
 
-            }, 300);
+            }, 400);
         }
     });
 }
