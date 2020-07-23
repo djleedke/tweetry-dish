@@ -326,6 +326,13 @@ header {
         padding-top:5% !important;
     }
 
+    #quote-text {
+        font-size:4vw;
+    }
+    #quote-author {
+        font-size:3vw;
+    }
+
     /*---------- Word Selector ----------*/
     #word-selector {
         padding:0;
@@ -403,16 +410,9 @@ header {
     }
 }
 
-@media only screen and (max-width:1200px){
-    #quote-text {
-        font-size:4vw;
-    }
-    #quote-author {
-        font-size:3vw;
-    }
-}
 
 @media only screen and (max-width:800px){
+
     #quote-text {
         font-size:8vw;
     }

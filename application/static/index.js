@@ -261,6 +261,8 @@ function mobileShowFindYourOwn(){
 
 $(document).ready(function(){
 
+    var windowWidth = $(window).width();
+
     //Hide top words, show search
     $('#mobile-search-toggle').on('click', function(){
         mobileShowFindYourOwn();
@@ -271,16 +273,26 @@ $(document).ready(function(){
         mobileShowTopWords();
     });
 
-    //Putting them both back if we resize
+    //Sets our top word and find your own divs back to being visible when resizing out of our mobile size
     $(window).resize(function(){
-        if($(document).width() > 1200){
-            $('#find-your-own').css('display', 'inline-block');
-            $('#top-words').css('display', 'inline-block');
-        } else {
-            mobileShowTopWords();
-        }
-    });
 
+        var resetWordSelector;
+        
+        clearTimeout(resetWordSelector);
+
+        resetWordSelector = setTimeout(() => {
+            if($(document).width() > 1200){
+                $('#find-your-own').css('display', 'inline-block');
+                $('#top-words').css('display', 'inline-block');
+            } else if($(window).width() != windowWidth) { 
+                //Window width check is necessary because Safari on iOS fires off resize events without the window actually changing sizes
+                mobileShowTopWords();
+            }
+
+            windowWidth = $(window).width();
+
+        }, 100);
+    })
 });
 
 /*---------- Page Ready---------*/
