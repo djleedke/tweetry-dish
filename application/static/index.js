@@ -10,6 +10,7 @@ $(document).ready(function(){
     $('.quote-word').each(function(){
         $(this).attr('data-tweetry-id', tweetryId);
         $(this).attr('data-quote-id', quoteId);
+        
     });
 
     refreshQuoteWords();
@@ -68,7 +69,15 @@ function addWordChoiceClickEvent(){
     $('.word-choice').on('click', function(e){
         clearSelectedWordChoice();
         $(this).addClass('selected-word-choice');
-        selectedWord.html($(this).data('word'));
+
+        wordChoice = $(this).data('word');
+
+        //Checking if the quote word is capitalized, if it is we want to keep the new word capitalized
+        if(selectedWord.html()[0] === selectedWord.html()[0].toUpperCase()){
+            selectedWord.html(wordChoice.charAt(0).toUpperCase() + wordChoice.slice(1));
+        } else {
+            selectedWord.html(wordChoice);
+        }
 
         $('#vote-footer').removeClass('hidden');
         $('#vote-footer').addClass('visible');
