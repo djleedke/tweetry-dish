@@ -21,6 +21,12 @@ def create_new_tweetry():
     tweetry_manager.create_new_tweetry()
     print('New Tweetry created.')
 
+@click.command(name='check_quotes')
+@with_appcontext
+def check_quotes():
+    tweetry_manager.check_for_new_quotes()
+    print('Quote check complete.')
+
 @click.command(name='create_tables')
 @with_appcontext
 def create_tables():
@@ -36,6 +42,7 @@ def drop_tables():
     print('Tables dropped.')
 
 app.cli.add_command(create_new_tweetry)
+app.cli.add_command(check_quotes)
 app.cli.add_command(create_tables)
 app.cli.add_command(drop_tables)
 
