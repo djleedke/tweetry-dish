@@ -74,9 +74,9 @@ function addWordChoiceClickEvent(){
 
         //Checking if the quote word is capitalized, if it is we want to keep the new word capitalized
         if(selectedWord.html()[0] === selectedWord.html()[0].toUpperCase()){
-            selectedWord.html(wordChoice.charAt(0).toUpperCase() + wordChoice.slice(1));
+            selectedWord.html(decodeURIComponent(wordChoice.charAt(0).toUpperCase() + wordChoice.slice(1)));
         } else {
-            selectedWord.html(wordChoice);
+            selectedWord.html(decodeURIComponent(wordChoice));
         }
 
         $('#vote-footer').removeClass('hidden');
@@ -175,7 +175,7 @@ function refreshTopChoiceList(){
                 
                 if(Object.keys(result).length > 0){
                     for(var choice in result){
-                        $('#top-words-list').append('<li><div class="word-choice" data-word=' + result[choice].word + '>' + result[choice].word + '<span>' + result[choice].votes + '</span></div></li>');
+                        $('#top-words-list').append('<li><div class="word-choice" data-word=' + encodeURIComponent(result[choice].word) + '>' + result[choice].word + '<span>' + result[choice].votes + '</span></div></li>');
                     }
                 } else {
                     $('#top-words-list').append('<li><div class="no-top-words">No votes received, be the first!</div></li>');
@@ -214,7 +214,7 @@ function populateSearchResults(data){
         $('#search-results').html(' ');
 
         for(i = 0; i < data.length; i++){
-            $('#search-results').append('<li><div class="word-choice" data-word=' + data[i].word + '>' + data[i].word + '</div></li>')
+            $('#search-results').append('<li><div class="word-choice" data-word=' + encodeURIComponent(data[i].word) + '>' + data[i].word + '</div></li>')
         }
         addWordChoiceClickEvent();
 
