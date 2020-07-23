@@ -15,7 +15,7 @@ class TweetryManager:
             #If we have come across a quote that did not exist we insert it
             if not Quote.query.filter_by(text=quote['text']).first():
 
-                new_quote = Quote(author=quote['author'], text=quote['text'])
+                new_quote = Quote(author=quote['author'], fake_author=self.create_fake_author_name(quote['author']), text=quote['text'])
                 db.session.add(new_quote)
                 db.session.commit()
 
@@ -61,6 +61,62 @@ class TweetryManager:
         db.session.add(new_tweetry)
         db.session.commit()
         return
+
+    #This will reverse the first and last letters of the first and last word of a string to create 
+    #a 'fake' author name for quotes that have been edited
+    def create_fake_author_name(self, author_name):
+
+        split_name = author_name.split(' ')
+
+        first_name_letter = split_name[0][0]
+        last_name_letter = split_name[-1][0]
+        
+        fake_first_name = last_name_letter + split_name[0][1:]
+        fake_last_name = first_name_letter + split_name[-1][1:]
+
+        #If the name is larger than two words we need to get all the stuff inbetween and add it back in
+        if(len(split_name) > 2):
+            fake_full_name = fake_first_name + ' ' + ' '.join(split_name[1:-1]) + ' ' + fake_last_name
+        else:
+            fake_full_name = fake_first_name + ' ' + fake_last_name
+
+        return fake_full_name
+
+    #Constructs our final quote and returns it in a string
+    def create_final_quote(self):
+
+        tweetry = self.get_current_tweetry()
+        original_quote = tweetry.quote
+
+        word_list = re.split('([\s.,;()]+)', original_quote.text)
+
+        final_quote = ''
+
+        position = 0
+
+        for word in word_list:
+
+            if word and word[0].isalpha():
+
+                word_id = db.session.query(Word).filter_by(position=position, quote_id=tweetry.quote.id).first().id
+                top_choice = db.session.query(Choice).filter_by(tweetry_id=tweetry.id, word_id=word_id).first()
+                
+                if top_choice:
+                    final_quote += top_choice.text
+                else:
+                    final_quote += word
+
+                position += 1
+
+            else:
+                final_quote += word
+
+        if(final_quote == original_quote.text):
+            final_quote = f'\"{final_quote}\" -{original_quote.author}'
+        else:
+            final_quote = f'\"{final_quote}\" -{original_quote.fake_author}'
+
+        return final_quote
 
     #Places a vote for the specified choice, voting multiple times will cause the 
     #user's prior vote to be removed each time
@@ -163,39 +219,6 @@ class TweetryManager:
 
         return top_choices
 
-    #Constructs our current final quote and returns it in a string
-    def get_final_quote(self):
-
-        tweetry = self.get_current_tweetry()
-        original_quote = tweetry.quote
-
-        word_list = re.split('([\s.,;()]+)', original_quote.text)
-
-        final_quote = ''
-
-        position = 0
-
-        for word in word_list:
-
-            if word and word[0].isalpha():
-
-                word_id = db.session.query(Word).filter_by(position=position, quote_id=tweetry.quote.id).first().id
-                top_choice = db.session.query(Choice).filter_by(tweetry_id=tweetry.id, word_id=word_id).first()
-                
-                if top_choice:
-                    final_quote += top_choice.text
-                else:
-                    final_quote += word
-
-                position += 1
-
-            else:
-                final_quote += word
-
-        final_quote += f' - {original_quote.author}'
-        
-        return final_quote
-    
     #Returns the current tweetry object from the database
     def get_current_tweetry(self):
         return db.session.query(Tweetry).filter_by(is_active=True).first()
@@ -203,7 +226,7 @@ class TweetryManager:
     #Tweets our newly created quote
     def tweet_final_quote(self):
 
-        final_quote = self.get_final_quote()
+        final_quote = self.create_final_quote()
 
         try:
             auth = tweepy.OAuthHandler(keys.api_key, keys.api_secret_key)

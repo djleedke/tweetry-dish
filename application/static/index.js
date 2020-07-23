@@ -1,5 +1,6 @@
 
 var selectedWord = null;
+var showFakeAuthor = false;
 
 /*---------- Initialization ----------*/
 
@@ -142,12 +143,17 @@ function refreshQuoteWords(){
                 for(i = 0; i < result.length; i++){
                     if($(this).data('wordId') === result[i]['wordId']){
                         $(this).html(result[i]['topChoice']);
-                        $(this).addClass('top-choice')
+                        $(this).addClass('top-choice');
+                        showFakeAuthor = true;
                         break;
                     } else {
                         $(this).removeClass('top-choice')
                         $(this).html($(this).data('word'));
                     }
+                }
+
+                if(showFakeAuthor === true){
+                    $('#quote-author').html('-' + fakeAuthor);
                 }
 
                 $('#vote-footer').removeClass('visible');

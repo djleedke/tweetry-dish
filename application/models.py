@@ -4,13 +4,14 @@ from application import db
 class Quote(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     author = db.Column(db.String(), nullable=False)
+    fake_author = db.Column(db.String(), nullable=False)
     text = db.Column(db.String(), unique=True, nullable=False)
     formatted_text = db.Column(db.String(), unique=True)
     words = db.relationship('Word', backref='quote', lazy=True)
     tweetry = db.relationship('Tweetry', backref='quote', lazy=True)
 
     def __repr__(self):
-        return f"Quote('{ self.author }, { self.text }')"
+        return f"Quote('author:{ self.author }, text:{ self.text }')"
 
 class Word(db.Model):
     id = db.Column(db.Integer, primary_key=True)

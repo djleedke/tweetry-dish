@@ -10,6 +10,7 @@
     <!-- My CSS -->
     <link rel="stylesheet" href="{{ url_for("static", filename="index.css")}}">
     <script>
+        var fakeAuthor = '{{ data.tweetry.quote.fake_author }}'
         var quoteId = '{{ data.tweetry.quote.id }}';
         var tweetryId = '{{ data.tweetry.id }}';
     </script>
