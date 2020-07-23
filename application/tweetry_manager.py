@@ -111,6 +111,7 @@ class TweetryManager:
             else:
                 final_quote += word
 
+        #If the quote is the same as before we just post the original author's name, otherwise the fake name
         if(final_quote == original_quote.text):
             final_quote = f'\"{final_quote}\" -{original_quote.author}'
         else:

@@ -5,7 +5,7 @@
     <title>TweetryDish</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, , maximum-scale=1.0, user-scalable=no">
     <!-- External CSS -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Mansalva&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- My CSS -->
     <link rel="stylesheet" href="{{ url_for("static", filename="index.css")}}">
@@ -17,13 +17,11 @@
 </head>
 <body>
     <header>
-        <div id="logo">TweetryDish</div>
+        <div id="logo">TweetryDish</div><div id="twitter-logo"><a href="https://twitter.com/TweetryDish" target="_blank"><img src="/static/twitter.png"></a></div>
     </header>
     <div id="content">
         <div id="quote">   
-            <div id="quote-text">
-                {{ data.tweetry.quote.formatted_text | safe }}
-            </div>
+            <div id="quote-text">"{{ data.tweetry.quote.formatted_text | safe }}"</div>
             <div id="quote-author">-{{ data.tweetry.quote.author | safe}}</div>
         </div>
         <div id="word-selector">
