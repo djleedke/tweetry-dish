@@ -22,7 +22,7 @@
                 <i class="fa fa-twitter" aria-hidden="true"></i>
                 <a href="https://twitter.com/TweetryDish" target="_blank">@TweetryDish</a>
             </div>
-            <i class="fa fa-question-circle-o" aria-hidden="true"></i>
+            <i id="open-about-modal" class="fa fa-question-circle-o" aria-hidden="true"></i>
         </header>
         <div id="content">
             <div id="quote">   
@@ -52,6 +52,27 @@
     </div>
     <div id="vote-footer">
         <button id="vote-button">Vote!</button>
+    </div>
+    <div id="about-modal">
+        <div id="modal-content">
+            <div id="modal-body">
+                <h2>Welcome to <a class="dark-blue" href="https://twitter.com/TweetryDish" target="_blank">@TweetryDish</a></h2>
+                <p>Greetings all!  The idea behind this app is simple:</p>
+                <ul>
+                    <li>Each day a new famous quote is generated.</li>
+                    <li>Users work together to create a "new" quote by voting to change individual words.</li>
+                    <li>You can vote once per hour by clicking on each word of the quote.</li>
+                    <li>You have a choice of selecting one of the existing top words, or you can find a word of your own.</li>
+                    <li>At 8:00pm EST the quote will be tweeted using the top choice for each word that was voted for.</li>
+                    <li>Rinse and repeat!</li>
+                </ul>
+                <p>...and that's it!  I hope you enjoy it, please try to keep things as clean as possible. ;)  Also, be sure to follow <a href="https://twitter.com/TweetryDish" target="_blank">@TweetryDish</a> to see the finished quotes!</p>
+                <p>Feedback is always appreciated so feel free to send me a message <a href="https://www.code-deejay.com/contact/" target="_blank">here</a>.  Also the code for this project is posted on <a href="https://github.com/djleedke/tweetry-dish-app" target="_blank">Github</a>, so feel free to take a look!</p>
+            </div>
+            <div id="modal-footer">
+                <button id="close-about-modal">Close</button>
+            </div>
+        </div>
     </div>
     <!-- External JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>

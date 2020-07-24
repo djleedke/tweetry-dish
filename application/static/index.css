@@ -19,6 +19,7 @@ html, body {
     right: 0;
 }
 
+
 #content {
     width:100%;
     min-height: 100%;
@@ -74,6 +75,7 @@ header {
 
 #quote {
     padding: 10% 20% 5% 20%;
+    animation: 1s ease-in 0s 1 fadeIn;
 }
 
 #quote-text {
@@ -271,7 +273,8 @@ header {
     color:white;
     text-align: right;
     padding-right: 20px;
-    font-size:1.25em;
+    font-size:1em;
+    animation: 1s ease-in 0s 1 fadeIn;
 }
 
 #creator-info a {
@@ -326,9 +329,109 @@ header {
     cursor: default !important;
 }
 
+/*---------- About Modal -----------*/
+
+#about-modal {
+    display:none;
+    position:fixed;
+    z-index:1;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+    animation: .5s ease-in 0s 1 fadeIn;
+}
+
+#modal-content {
+    background:white;
+    margin: 5% 35%;
+    border-radius:5px;
+}
+
+#modal-body {
+    padding:20px 40px 20px 40px;
+    font-size:1.25em;
+}
+
+#modal-body p a {
+    color:#0b7bc1;
+    text-decoration: none;
+    transition:all .5s;
+    font-weight: bold;
+}
+
+#modal-body p a:hover {
+    background-color:#0b7bc1;
+    color:white;
+    transition:all .5s;
+}
+
+#modal-body h2 {
+    margin:5px 0;
+}
+
+#modal-body ul {
+    list-style-type: none;
+    padding-left:10px;
+    font-size:1em;
+}
+
+#modal-body li {
+    margin-top:15px;
+    padding-left:5px;
+    border-left: solid 5px lightgrey;
+}
+
+#modal-body span {
+    margin-right:50px;
+}
+
+#modal-footer {
+    padding: 0 40px 20px 40px;
+    text-align: center;
+}
+
+#close-about-modal {
+    width:100px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    color:white;
+    background-color:#0b7bc1;
+    border:none;
+    font-size:1.25em;
+    cursor: pointer;
+    transition:background-color .5s;
+}
+
+#close-about-modal:hover {
+    background-color:#6ec2f7;
+    transition:background-color .5s;
+}
+
+#close-about-modal:focus {
+    outline:none;
+    box-shadow: none;
+    background-color:#0b7bc1;
+    transition:background-color .5s;
+}
+
 /*---------- General Use ---------*/
 
 /* Animations & Transitions */
+
+@keyframes fadeIn {
+    0% {
+        opacity:0;
+        /*background-color:white;*/
+    }
+    100% {
+        opacity:1;
+        /*background-color:  #26a4f2;*/
+    }
+  }
+
 .visible {
     visibility: visible !important;
     opacity: 1 !important;
@@ -356,6 +459,21 @@ header {
     padding-bottom: 10px;
 }
 
+/* Colors */
+
+.dark-blue {
+    background-color:#0b7bc1;
+    color:white;
+    text-decoration: none;
+    transition: all .5s;
+}
+
+.dark-blue:hover {
+    background-color:#87ccf8;
+    color:white;
+    transition: all .5s;
+}
+
 /* Loader */
 .loader {
     margin:0 auto;
@@ -378,6 +496,8 @@ header {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+
+
 
 /*---------- Media Queries -----------*/
 @media only screen and (max-width:1200px) {
@@ -480,6 +600,17 @@ header {
         width:100%;
         height:60px;
         margin:0px;
+    }
+
+    /*---------- About Modal -----------*/
+
+    #modal-content {
+        margin:2% 2%;
+    }
+
+    #modal-body {
+        padding-left:20px;
+        padding-right:20px;
     }
 
     /*---------- General Use ---------*/

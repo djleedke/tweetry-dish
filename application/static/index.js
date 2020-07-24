@@ -28,6 +28,16 @@ $('#search-input').keypress(function(e) {
 
 $(document).ready(function(){
     
+    $('#open-about-modal').on('click', function(){
+        $('#about-modal').css('display', 'block');
+        $('#about-modal').scrollTop(0);
+    });
+
+        
+    $('#close-about-modal').on('click', function(){
+        $('#about-modal').css('display', 'none');
+    });
+
     //Clicking one of our selectable words in the quote
     $('.quote-word').on('click', function(e){
         clearSelectedQuoteWord();
