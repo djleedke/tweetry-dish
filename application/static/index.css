@@ -5,17 +5,35 @@ html {
 
 html, body {
     width:100%;
-    height:100%;
+    min-height:100%;
     padding:0px;
     margin:0px;
-
 }
 
+#wrapper {
+    padding-top:45px;
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+#content {
+    width:100%;
+    min-height: 100%;
+    color:white;
+    background-color:  #26a4f2;
+    margin-bottom:-40px;
+}
+
+/*---------- Navbar ----------*/
+
 header {
-    height:5%;
+    margin-top:-45px;
     background-color:#0b7bc1;
     color:white;
-    min-height: 45px;
+    height: 45px;
     vertical-align: middle;
 }
 
@@ -23,43 +41,39 @@ header {
     display:inline-block;
     font-size: 1.5em;
     padding: 0 0 0 20px; 
-    font-family: 'Mansalva', cursive;
     height:100%;
     line-height: 45px;
-  
 }
 
-#twitter-logo {
-    padding-right:20px;
-    float:right;
-    height:100%;
-    
-    
+.fa-twitter {
+    padding-right:10px;
 }
 
-#twitter-logo img {
-
-    margin-top:20%;
-    height:70%;
+#logo a {
+    background-color:white;
+    color:#0b7bc1;
+    transition:all .5s;
+    text-decoration: none;
 }
 
-#content {
-    width:100%;
-    min-height: 95%;
+#logo a:hover {
+    background-color:#0a6ca9;
     color:white;
-    background-color:  #26a4f2;
-    margin-bottom:-40px;
+    transition:all .5s;
+}
+
+.fa-question-circle-o{
+    float:right;
+    line-height: 45px;
+    padding-right:20px;
+    font-size:1.5em;
+    cursor: pointer;
 }
 
 /*---------- Quote ----------*/
 
 #quote {
     padding: 10% 20% 5% 20%;
-}
-
-.slide-up {
-    padding-top:2% !important;
-    transition: all 1s !important;
 }
 
 #quote-text {
@@ -108,18 +122,6 @@ header {
     opacity:0;
 }
 
-.visible {
-    visibility: visible !important;
-    opacity: 1 !important;
-    transition: all 1s !important;
-}
-
-.hidden {
-    visibility: hidden !important;
-    opacity:0 !important;
-    transition: all 1s !important;
-}
-
 #word-selector h1 {
     margin:0px;
     height:40px;
@@ -158,7 +160,6 @@ header {
     display: none;
 }
 
-
 /*---------- Find Your Own Word ----------*/
 
 #find-your-own {
@@ -173,6 +174,11 @@ header {
     background-color: #0b7bc1;
     padding-top:5px;
     padding-bottom:5px;
+}
+
+#search-button:hover{
+    color: #b7e1fb;
+    cursor: pointer;
 }
 
 .fa-search {
@@ -206,33 +212,6 @@ header {
     color:grey;
 }
 
-.loader-container {
-    padding-top:10px;
-    padding-bottom: 10px;
-}
-
-.loader {
-    margin:0 auto;
-    border: 6px solid lightgrey;
-    border-radius: 50%;
-    border-top: 6px solid #3498db;
-    width: 12px;
-    height: 12px;
-    -webkit-animation: spin 1.5s linear infinite; /* Safari */
-    animation: spin 1.5s linear infinite;
-}
-
-/* Safari */
-@-webkit-keyframes spin {
-    0% { -webkit-transform: rotate(0deg); }
-    100% { -webkit-transform: rotate(360deg); }
-}
-  
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
 #mobile-top-word-toggle {
     display:none;
 }
@@ -259,7 +238,6 @@ header {
     padding-bottom:8px;
     padding-top:8px;
     height:28px;
-    
 }
 
 .no-top-words {
@@ -282,6 +260,31 @@ header {
 
 .selected-word-choice:hover {
     color:white !important;
+}
+
+/*---------- Creator Info ----------*/
+
+#creator-info {
+    bottom:15px;
+    right:0;
+    position: relative;
+    color:white;
+    text-align: right;
+    padding-right: 20px;
+    font-size:1.25em;
+}
+
+#creator-info a {
+    background-color:#0b7bc1;
+    color:white;
+    text-decoration: none;
+    transition: background-color .5s;
+}
+
+#creator-info a:hover {
+    background-color:white;
+    color:#0b7bc1;
+    transition: background-color .5s;
 }
 
 /*---------- Vote Button ----------*/
@@ -308,7 +311,6 @@ header {
     font-size:1.5em;
     cursor: pointer;
     font-weight: bold;
-    
 }
 
 #vote-button:focus {
@@ -324,14 +326,65 @@ header {
     cursor: default !important;
 }
 
+/*---------- General Use ---------*/
 
+/* Animations & Transitions */
+.visible {
+    visibility: visible !important;
+    opacity: 1 !important;
+    transition: all 1s !important;
+}
+
+.hidden {
+    visibility: hidden !important;
+    opacity:0 !important;
+    transition: all 1s !important;
+}
+
+.slide-up {
+    padding-top:2% !important;
+    transition: padding-top 1s !important;
+}
+
+.slide-down {
+    padding-top:10% !important;
+    transition: padding-top 1s !important;
+}
+
+.loader-container {
+    padding-top:10px;
+    padding-bottom: 10px;
+}
+
+/* Loader */
+.loader {
+    margin:0 auto;
+    border: 6px solid lightgrey;
+    border-radius: 50%;
+    border-top: 6px solid #3498db;
+    width: 12px;
+    height: 12px;
+    -webkit-animation: spin 1.5s linear infinite; /* Safari */
+    animation: spin 1.5s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+}
+  
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
 
 /*---------- Media Queries -----------*/
 @media only screen and (max-width:1200px) {
 
     /*---------- Quote ----------*/
     #quote {
-        padding:10% 5% 15% 5%;
+        padding:15% 5% 15% 5%;
         top:0;
         background-color:inherit;
         z-index:1;
@@ -428,8 +481,15 @@ header {
         height:60px;
         margin:0px;
     }
-}
 
+    /*---------- General Use ---------*/
+
+    /* Animations & Transitions */
+
+    .slide-down {
+        padding-top:15% !important;
+    }
+}
 
 @media only screen and (max-width:800px){
 

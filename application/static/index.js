@@ -4,18 +4,14 @@ var showFakeAuthor = false;
 
 /*---------- Initialization ----------*/
 
-
 $(document).ready(function(){
 
     //Getting the top choice for each of our user-editable elements
     $('.quote-word').each(function(){
         $(this).attr('data-tweetry-id', tweetryId);
         $(this).attr('data-quote-id', quoteId);
-        
     });
-
     refreshQuoteWords();
-
 });
 
 /*---------- Key Handling ----------*/
@@ -24,19 +20,8 @@ $(document).ready(function(){
 $('#search-input').keypress(function(e) {
 
     if(e.which == 13){
-
-        var input = $(this).val();
-
-        $('#search-results').html('');
-        $('#search-results').append('<div class="loader-container"><div class="loader"></div>');
-        
-
-        fetch("https://cors-anywhere.herokuapp.com/https://api.datamuse.com/sug?s=" + input)
-            .then(response => response.json())
-            .then(data => populateSearchResults(data));
-
+        searchForWord($('#search-input').val());
     }
-
 });
 
 /*---------- On Click Events ----------*/
@@ -45,22 +30,53 @@ $(document).ready(function(){
     
     //Clicking one of our selectable words in the quote
     $('.quote-word').on('click', function(e){
-        clearSelectedQuoteWord(selectedWord);
+        clearSelectedQuoteWord();
         $(this).addClass('selected-quote-word');
         selectedWord = $(this)
 
         //Some transition animations to show the word selector
+        $('#quote').removeClass('slide-down');
         $('#quote').addClass('slide-up');
-        $('#quote').addClass('bottom-bordered');
+
+        $('#word-selector').removeClass('hidden');
         $('#word-selector').addClass('visible');
+
+        $('#creator-info').addClass('hidden');
 
         refreshTopChoiceList();
         clearSelectedWordChoice();
+
+    });
+
+    $('#search-button').on('click', function(e){
+        searchForWord($('#search-input').val());
     });
 
     //Saving our vote
     $('#vote-button').on('click', function(e){
         saveVote();
+    });
+
+    //Checking for a click outside of these ids if found we hide everything except the quote
+    $('#content').on('mousedown', function(e){
+
+        if($(e.target).closest('#find-your-own').length === 0) {
+            if($(e.target).closest('#top-words').length === 0){
+                if($(e.target).closest('#quote-text').length === 0){
+
+                    $('#word-selector').removeClass('visible');
+                    $('#word-selector').addClass('hidden');
+
+                    $('#search-results').html(' ');
+
+                    $('#quote').removeClass('slide-up');
+                    $('#quote').addClass('slide-down');
+
+                    clearSelectedQuoteWord();
+
+                }
+            }
+        }
     });
 });
 
@@ -152,6 +168,7 @@ function refreshQuoteWords(){
                     }
                 }
 
+                //If a tweetry has any votes we will show the fake author name
                 if(showFakeAuthor === true){
                     $('#quote-author').html('-' + fakeAuthor);
                 }
@@ -166,6 +183,7 @@ function refreshQuoteWords(){
 
 //Refreshes the list of the top choices for the currently selected word
 function refreshTopChoiceList(){
+
     $.ajax({
         type : 'POST',
         url : '/refresh-top-choice-list',
@@ -196,6 +214,7 @@ function refreshTopChoiceList(){
 
 //Gets the top choice for the specified quote word element
 function getTopChoice(ele){
+    
     $.ajax({
         type : 'POST',
         url : '/top-choice',
@@ -210,6 +229,18 @@ function getTopChoice(ele){
 }
 
 /*---------- Miscellaneous Functions -----------*/
+
+//Sends a search request to Datamuse and populates the search-results element
+function searchForWord(word){
+    if(word){
+        $('#search-results').html('');
+        $('#search-results').append('<div class="loader-container"><div class="loader"></div>');
+    
+        fetch("https://cors-anywhere.herokuapp.com/https://api.datamuse.com/sug?s=" + word)
+        .then(response => response.json())
+        .then(data => populateSearchResults(data));
+    }
+}
 
 //Populates the search result ul with the provided data
 function populateSearchResults(data){
@@ -228,12 +259,13 @@ function populateSearchResults(data){
 }
 
 //Clears the selected word quote and replaces it with the current top choice
-function clearSelectedQuoteWord(ele){
+function clearSelectedQuoteWord(){
 
-    if(ele !== null){
-        ele.removeClass('selected-quote-word');
-        refreshQuoteWords();
-    }
+    $('.quote-word').each(function(){
+        $(this).removeClass('selected-quote-word');
+    });
+
+    refreshQuoteWords();
 
 }
 
@@ -258,7 +290,6 @@ function getCookie(cookieName){
 }
 
 /*---------- Mobile Only ----------*/
-
 
 function mobileShowTopWords(){
     if($(document).width() < 1200){

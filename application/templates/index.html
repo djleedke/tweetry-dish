@@ -16,28 +16,38 @@
     </script>
 </head>
 <body>
-    <header>
-        <div id="logo">TweetryDish</div><div id="twitter-logo"><a href="https://twitter.com/TweetryDish" target="_blank"><img src="/static/twitter.png"></a></div>
-    </header>
-    <div id="content">
-        <div id="quote">   
-            <div id="quote-text">"{{ data.tweetry.quote.formatted_text | safe }}"</div>
-            <div id="quote-author">-{{ data.tweetry.quote.author | safe}}</div>
-        </div>
-        <div id="word-selector">
-            <div id="top-words">
-                <h1>Top Words<i id="mobile-search-toggle" class="fa fa-search"></i></h1>
-                <ul id="top-words-list"></ul>
+    <div id="wrapper">
+        <header>
+            <div id="logo">
+                <i class="fa fa-twitter" aria-hidden="true"></i>
+                <a href="https://twitter.com/TweetryDish" target="_blank">@TweetryDish</a>
             </div>
-            <div id="find-your-own">
-                <div id="search-bar">
-                    <i class="fa fa-search"></i>
-                    <input id="search-input" type="text" placeholder="Find your own..." autocomplete="off">
+            <i class="fa fa-question-circle-o" aria-hidden="true"></i>
+        </header>
+        <div id="content">
+            <div id="quote">   
+                <div id="quote-text">"{{ data.tweetry.quote.formatted_text | safe }}"</div>
+                <div id="quote-author">-{{ data.tweetry.quote.author | safe}}</div>
+            </div>
+            <div id="word-selector">
+                <div id="top-words">
+                    <h1>Top Words<i id="mobile-search-toggle" class="fa fa-search"></i></h1>
+                    <ul id="top-words-list"></ul>
                 </div>
-                <ul id="search-results">
-                </ul>
-                <div id="mobile-top-word-toggle">View Top Words</div>
+                <div id="find-your-own">
+                    <div id="search-bar">
+                        <i id="search-button" class="fa fa-search"></i>
+                        <input id="search-input" type="text" placeholder="Find your own..." autocomplete="off">
+                    </div>
+                    <ul id="search-results">
+                    </ul>
+                    <div id="mobile-top-word-toggle">View Top Words</div>
+                </div>
             </div>
+        </div>
+        <div id="creator-info">
+            <div>Created by <a href="https://www.code-deejay.com" target="_blank">djleedke</a></div>
+            <div>View the source on <a href="https://github.com/djleedke/tweetry-dish-app" target="_blank">Github</a></div>
         </div>
     </div>
     <div id="vote-footer">
