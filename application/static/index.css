@@ -332,16 +332,16 @@ header {
 /*---------- About Modal -----------*/
 
 #about-modal {
-    display:none;
+    opacity:0;
+    pointer-events: none;
     position:fixed;
-    z-index:1;
+    z-index:0;
     left:0;
     top:0;
     width:100%;
     height:100%;
     overflow: auto;
     background-color: rgba(0,0,0,0.4);
-    animation: .5s ease-in 0s 1 fadeIn;
 }
 
 #modal-content {
@@ -352,7 +352,7 @@ header {
 
 #modal-body {
     padding:20px 40px 20px 40px;
-    font-size:1.25em;
+    font-size:1.2em;
 }
 
 #modal-body p a {
@@ -424,13 +424,32 @@ header {
 @keyframes fadeIn {
     0% {
         opacity:0;
-        /*background-color:white;*/
     }
     100% {
         opacity:1;
-        /*background-color:  #26a4f2;*/
     }
   }
+
+@keyframes fadeOut {
+    0% {
+        opacity:1;
+    }
+    100% {
+        opacity:0;
+    }
+}
+
+.fadeIn {
+    opacity:1 !important;
+    pointer-events: all !important;
+    transition: opacity 1s !important;
+}
+
+.fadeOut {
+    opacity:0 !important;
+    pointer-events: none !important;
+    transition: opacity .5s !important;
+}
 
 .visible {
     visibility: visible !important;

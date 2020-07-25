@@ -18,7 +18,6 @@ $(document).ready(function(){
 
 //Waiting for an enter key press and then getting results from datamuse
 $('#search-input').keypress(function(e) {
-
     if(e.which == 13){
         searchForWord($('#search-input').val());
     }
@@ -29,13 +28,15 @@ $('#search-input').keypress(function(e) {
 $(document).ready(function(){
     
     $('#open-about-modal').on('click', function(){
-        $('#about-modal').css('display', 'block');
+        $('#about-modal').removeClass('fadeOut');
+        $('#about-modal').addClass('fadeIn');
         $('#about-modal').scrollTop(0);
     });
 
-        
     $('#close-about-modal').on('click', function(){
-        $('#about-modal').css('display', 'none');
+        //$('#about-modal').css('display', 'none');
+        $('#about-modal').removeClass('fadeIn');
+        $('#about-modal').addClass('fadeOut');
     });
 
     //Clicking one of our selectable words in the quote
@@ -238,7 +239,7 @@ function getTopChoice(ele){
     });
 }
 
-/*---------- Miscellaneous Functions -----------*/
+/*---------- Find Your Own Word ----------*/
 
 //Sends a search request to Datamuse and populates the search-results element
 function searchForWord(word){
@@ -268,6 +269,8 @@ function populateSearchResults(data){
     }, 1000);
 }
 
+/*---------- Miscellaneous -----------*/
+
 //Clears the selected word quote and replaces it with the current top choice
 function clearSelectedQuoteWord(){
 
@@ -276,7 +279,6 @@ function clearSelectedQuoteWord(){
     });
 
     refreshQuoteWords();
-
 }
 
 //Clears the CSS from any currently selected word choices in word-selector
