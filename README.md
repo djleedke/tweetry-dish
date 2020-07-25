@@ -66,11 +66,11 @@ This will create all of the tables the app needs to run, load up the database wi
 the app at this point is using SQLite as the database. You will see a site.db file that was created automatically in the application folder.  In production it is using
 Postgres on Heroku but this may vary depending on where it is deployed.
 
-If you head back to 127.0.0.1:5000 in the browser you should now see things running correctly.  Congrats!  If you would like to turn on the scheduler open a new command prompt from the root folder with the virtual environment active and enter:
+If you head back to 127.0.0.1:5000 in the browser you should now see things running correctly.  Congrats!  If you would like to turn on the scheduler, open a new command prompt from the root folder with the virtual environment active and enter:
 ```
 python scheduler.py
 ```
-It's default is to finalize the tweet at 12:00am UTC each day but you can easily change this in scheduler.py if you'd like.  The quote will not automatically change on it's own unless the scheduler is active nor will it tweet anything.  If you'd like to manually change the quote, use the `flask create_new_tweetry` command to do so.  
+It's default setting is to finalize the tweet at 12:00am UTC each day but you can easily change this in scheduler.py if you'd like.  At that time the tweet will post, and a new tweetry will be created with a new quote.  The quote will not automatically change on it's own unless the scheduler is active nor will it tweet anything.  If you'd like to manually change the quote, use the `flask create_new_tweetry` command to do so.  
 
 
 ### Commands
