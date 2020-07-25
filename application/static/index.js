@@ -131,7 +131,7 @@ function saveVote(){
         data : JSON.stringify(word_data),
         contentType: 'application/json; charset=utf-8',
         success: function(result){
-            //If the user is voting for an old tweetry we check on the server and refresh the page if it is
+            //If the user is voting for an old quote we check on the server and refresh the page if it is
             //Other wise we refresh the top choices
             if(result === 'Refresh'){
                 location.reload();
@@ -174,9 +174,15 @@ function refreshQuoteWords(){
                         showFakeAuthor = true;
                         break;
                     } else {
+
                         $(this).removeClass('top-choice')
                         $(this).html($(this).data('word'));
                     }
+                }
+
+                //If there are no results we set the word back to it's original word
+                if(result.length === 0){
+                    $(this).html($(this).data('word'));
                 }
 
                 //If a tweetry has any votes we will show the fake author name
