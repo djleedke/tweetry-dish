@@ -80,4 +80,99 @@ quotes = [
         'text':'I find that the harder I work, the more luck I seem to have.'
     },
 
+    {
+        'author':'Albert Einstein',
+        'text':'I have no special talent. I am only passionately curious.'
+    },
+
+    {
+        'author':'Mother Teresa',
+        'text':'If you judge people, you have no time to love them.'
+    },
+
+    {
+        'author':'Steve Jobs',
+        'text':'Stay hungry, stay foolish.'
+    },
+
+    {
+        'author':'Muhammad Ali',
+        'text':'Don’t count the days, make the days count.'
+    },
+
+    {
+        'author':'Benjamin Franklin',
+        'text':'Well done is better than well said.'
+    },
+
+    {
+        'author':'Nelson Mandela',
+        'text':'It always seems impossible until it’s done.'
+    },
+
+    {
+        'author':'Elvis Presley',
+        'text':'It’s not how much you have that makes people look up to you, it’s who you are.'
+    },
+
+    {
+        'author':'William Shakespeare',
+        'text':'Love all, trust a few, do wrong to none.'
+    },
+
+    {
+        'author':'Julius Caesar',
+        'text':'I came, I saw, I conquered.'
+    },
+
+    {
+        'author':'Neil Armstrong',
+        'text':'That’s one small step for a man, one giant leap for mankind.'
+    },
+
+    {
+        'author':'Rosa Parks',
+        'text':'All I was doing was trying to get home from work.'
+    },
+
+    {
+        'author':'Muhammad Ali',
+        'text':'Float like a butterfly, sting like a bee.'
+    },
+
+    {
+        'author':'Vince Lombardi',
+        'text':'It’s not whether you get knocked down, it’s whether you get up.'
+    },
+
+    {
+        'author':'Winston Churchill',
+        'text':'Keep calm and carry on.'
+    },
+
+    {
+        'author':'Mahatma Gandhi',
+        'text':'Nobody can hurt me without my permission.'
+    },
+
+    {
+        'author':'Walt Disney',
+        'text':'It’s fun to do the impossible.'
+    },
+
+    {
+        'author':'Oscar Wilde',
+        'text':'Always forgive your enemies; nothing annoys them so much.'
+    },
+
+    {
+        'author':'Edgar Allan Poe',
+        'text':'I became insane, with long intervals of horrible sanity.'
+    },
+
+    {
+        'author':'Vince Lombardi',
+        'text':'Confidence is contagious. So is a lack of confidence.'
+    },
+
 ]
