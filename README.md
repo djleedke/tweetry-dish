@@ -70,7 +70,7 @@ If you head back to 127.0.0.1:5000 in the browser you should now see things runn
 ```
 python scheduler.py
 ```
-It's default is to finalize the tweet at 12:00am UTC each day but you can easily change this in scheduler.py if you'd like. 
+It's default is to finalize the tweet at 12:00am UTC each day but you can easily change this in scheduler.py if you'd like.  The quote will not automatically change on it's own unless the scheduler is active nor will it tweet anything.  If you'd like to manually change the quote, use the `flask create_new_tweetry` command to do so.  
 
 
 ### Commands
