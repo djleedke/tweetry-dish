@@ -23,6 +23,11 @@ $('#search-input').keypress(function(e) {
     }
 });
 
+//Search also performed if the input loses focus
+$('#search-input').focusout(function(e){
+    searchForWord($('#search-input').val());
+});
+
 /*---------- On Click Events ----------*/
 
 $(document).ready(function(){

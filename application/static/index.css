@@ -374,7 +374,7 @@ header {
 
 #modal-body ul {
     list-style-type: none;
-    padding-left:10px;
+    padding-left:0px;
     font-size:1em;
 }
 
@@ -523,7 +523,7 @@ header {
 
     /*---------- Quote ----------*/
     #quote {
-        padding:15% 5% 15% 5%;
+        padding:20% 5% 15% 5%;
         top:0;
         background-color:inherit;
         z-index:1;
@@ -637,7 +637,7 @@ header {
     /* Animations & Transitions */
 
     .slide-down {
-        padding-top:15% !important;
+        padding-top:20% !important;
     }
 }
 
