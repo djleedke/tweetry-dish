@@ -1,4 +1,4 @@
-![tweetry-dish](https://user-images.githubusercontent.com/33850990/88745722-52611f00-d110-11ea-932d-9e92467cf154.png)
+![tweetry-dish](https://user-images.githubusercontent.com/33850990/88748945-e2569700-d117-11ea-8278-4c2492034b2a.gif)
 
 ## TweetryDish
 TweetryDish is a Flask web application that allows users to vote and modify each word of a daily quote. 
