@@ -5,6 +5,7 @@ Heroku and can be found at https://tweetry-dish-app.herokuapp.com/.
 
 - [Setup](#setup)
 - [Commands](#commands)
+- [Built With](#built-with)
 
 ### Setup
 
@@ -95,5 +96,13 @@ Checks quotes.py for new quotes and then adds them to the database:
 flask check_quotes
 ```
 
+### Built With
+
+- [Flask](https://flask.palletsprojects.com/en/1.1.x/) - for the webserver
+- [SQLAlchemy](https://www.sqlalchemy.org/) - for handling the database
+- [Tweepy](http://docs.tweepy.org/en/latest/) - for tweeting
+- [APScheduler](https://apscheduler.readthedocs.io/en/stable/) - for scheduling the tweet event
+- [Datamuse API](https://www.datamuse.com/api/) - for the word search functionality
+- [Heroku](https://dashboard.heroku.com/) - for deployment
 
 
