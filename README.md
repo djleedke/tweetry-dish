@@ -1,9 +1,11 @@
-![tweetry-dish](https://user-images.githubusercontent.com/33850990/88748945-e2569700-d117-11ea-8278-4c2492034b2a.gif)
+
 
 ## TweetryDish
 TweetryDish is a Flask web application that allows users to vote and modify each word of a daily quote. 
 Each day the quote is automatically tweeted with the highest voted words for that day.  The app is hosted on
 Heroku and can be found at https://tweetry-dish-app.herokuapp.com/.
+
+![tweetry-dish](https://user-images.githubusercontent.com/33850990/88748945-e2569700-d117-11ea-8278-4c2492034b2a.gif)
 
 - [Setup](#setup)
 - [Commands](#commands)
