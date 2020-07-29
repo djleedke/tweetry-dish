@@ -7,6 +7,8 @@ Heroku and can be found at https://tweetry-dish-app.herokuapp.com/.
 
 ![tweetry-dish](https://user-images.githubusercontent.com/33850990/88748945-e2569700-d117-11ea-8278-4c2492034b2a.gif)
 
+![image](https://user-images.githubusercontent.com/33850990/88752271-200aee00-d11f-11ea-9f02-e802a0acb822.png)
+
 - [Setup](#setup)
 - [Commands](#commands)
 - [Built With](#built-with)
