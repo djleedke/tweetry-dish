@@ -255,6 +255,7 @@ header {
     color:black;
 }
 
+
 .selected-word-choice {
     background-color:#0e9af1;
     color:white;
@@ -608,7 +609,7 @@ header {
         background-color:#0d8bd9;
         cursor:pointer;
     }
-    
+
     /*---------- Vote Button ----------*/
 
     #vote-footer {

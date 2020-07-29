@@ -23,11 +23,6 @@ $('#search-input').keypress(function(e) {
     }
 });
 
-//Search also performed if the input loses focus
-$('#search-input').focusout(function(e){
-    searchForWord($('#search-input').val());
-});
-
 /*---------- On Click Events ----------*/
 
 $(document).ready(function(){
@@ -59,6 +54,7 @@ $(document).ready(function(){
 
         $('#creator-info').addClass('hidden');
 
+        searchForWord($('#search-input').val());
         refreshTopChoiceList();
         clearSelectedWordChoice();
 
@@ -89,6 +85,7 @@ $(document).ready(function(){
                     $('#quote').addClass('slide-down');
 
                     clearSelectedQuoteWord();
+                    lastWord = null;
 
                 }
             }
@@ -252,15 +249,19 @@ function getTopChoice(ele){
 
 /*---------- Find Your Own Word ----------*/
 
+lastWord = null;
+
 //Sends a search request to Datamuse and populates the search-results element
 function searchForWord(word){
-    if(word){
+    if(word && lastWord !== word){
         $('#search-results').html('');
         $('#search-results').append('<div class="loader-container"><div class="loader"></div>');
     
         fetch("https://cors-anywhere.herokuapp.com/https://api.datamuse.com/sug?s=" + word)
         .then(response => response.json())
         .then(data => populateSearchResults(data));
+
+        lastWord = word;
     }
 }
 
@@ -327,6 +328,13 @@ function mobileShowFindYourOwn(){
         $('#top-words').css('display', 'none');
     } 
 }
+
+//Search also performed if the input loses focus
+$('#search-input').focusout(function(e){
+    if($(document).width()<1200){
+        searchForWord($('#search-input').val());
+    }
+});
 
 $(document).ready(function(){
 
