@@ -108,6 +108,7 @@ flask check_quotes
 ## Built With
 
 - [Flask](https://flask.palletsprojects.com/en/1.1.x/) - for the webserver
+- [jQuery](https://jquery.com/) - for the javascript
 - [SQLAlchemy](https://www.sqlalchemy.org/) - for handling the database
 - [Tweepy](http://docs.tweepy.org/en/latest/) - for tweeting
 - [APScheduler](https://apscheduler.readthedocs.io/en/stable/) - for scheduling the tweet event
