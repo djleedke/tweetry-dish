@@ -1,15 +1,22 @@
-![tweetry-dish](https://user-images.githubusercontent.com/33850990/88745722-52611f00-d110-11ea-932d-9e92467cf154.png)
 
-## TweetryDish
+
+# TweetryDish
+
 TweetryDish is a Flask web application that allows users to vote and modify each word of a daily quote. 
 Each day the quote is automatically tweeted with the highest voted words for that day.  The app is hosted on
 Heroku and can be found at https://tweetry-dish-app.herokuapp.com/.
+
+![tweetry-dish](https://user-images.githubusercontent.com/33850990/88748945-e2569700-d117-11ea-8278-4c2492034b2a.gif)
+
+![image](https://user-images.githubusercontent.com/33850990/88752271-200aee00-d11f-11ea-9f02-e802a0acb822.png)
+
+## Contents
 
 - [Setup](#setup)
 - [Commands](#commands)
 - [Built With](#built-with)
 
-### Setup
+## Setup
 
 If you'd like to get the project running locally start by setting up .git in a new folder:
 ```
@@ -76,7 +83,7 @@ python scheduler.py
 It's default setting is to finalize the tweet at 12:00am UTC each day but you can easily change this in scheduler.py if you'd like.  At that time the tweet will post, and a new tweetry will be created with a new quote.  The quote will not automatically change on it's own unless the scheduler is active nor will it tweet anything.  If you'd like to manually change the quote, use the `flask create_new_tweetry` command to do so.  
 
 
-### Commands
+## Commands
 
 Creates tables, loads new quotes, and initializes the first Tweetry:
 ```
@@ -98,9 +105,10 @@ Checks quotes.py for new quotes and then adds them to the database:
 flask check_quotes
 ```
 
-### Built With
+## Built With
 
 - [Flask](https://flask.palletsprojects.com/en/1.1.x/) - for the webserver
+- [jQuery](https://jquery.com/) - for the javascript
 - [SQLAlchemy](https://www.sqlalchemy.org/) - for handling the database
 - [Tweepy](http://docs.tweepy.org/en/latest/) - for tweeting
 - [APScheduler](https://apscheduler.readthedocs.io/en/stable/) - for scheduling the tweet event
