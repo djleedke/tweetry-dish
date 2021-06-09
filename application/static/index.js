@@ -34,7 +34,6 @@ $(document).ready(function(){
     });
 
     $('#close-about-modal').on('click', function(){
-        //$('#about-modal').css('display', 'none');
         $('#about-modal').removeClass('fadeIn');
         $('#about-modal').addClass('fadeOut');
     });
@@ -257,7 +256,8 @@ function searchForWord(word){
         $('#search-results').html('');
         $('#search-results').append('<div class="loader-container"><div class="loader"></div>');
     
-        fetch("https://cors-anywhere.herokuapp.com/https://api.datamuse.com/sug?s=" + word)
+        //fetch("https://cors-anywhere.herokuapp.com/https://api.datamuse.com/sug?s=" + word) Proxy no longer works
+        fetch("https://api.datamuse.com/sug?s=" + word)
         .then(response => response.json())
         .then(data => populateSearchResults(data));
 
